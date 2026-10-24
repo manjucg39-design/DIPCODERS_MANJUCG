@@ -1,0 +1,1360 @@
+{
+  "users": [
+    {
+      "id": "c-1",
+      "name": "Kavitha S.",
+      "email": "kavitha@example.com",
+      "phone": "9845012345",
+      "role": "customer",
+      "language": "kn",
+      "addressLocality": "Gokulam",
+      "createdAt": "2026-10-01T10:00:00Z"
+    },
+    {
+      "id": "c-2",
+      "name": "Rajesh Rao",
+      "email": "rajesh@example.com",
+      "phone": "9845023456",
+      "role": "customer",
+      "language": "en",
+      "addressLocality": "Vijayanagar",
+      "createdAt": "2026-10-02T11:00:00Z"
+    },
+    {
+      "id": "c-3",
+      "name": "Ananya Gowda",
+      "email": "ananya@example.com",
+      "phone": "9845034567",
+      "role": "customer",
+      "language": "kn",
+      "addressLocality": "Kuvempunagar",
+      "createdAt": "2026-10-03T12:00:00Z"
+    },
+    {
+      "id": "c-4",
+      "name": "Vikram Patel",
+      "email": "vikram@example.com",
+      "phone": "9845045678",
+      "role": "customer",
+      "language": "hi",
+      "addressLocality": "Saraswathipuram",
+      "createdAt": "2026-10-04T13:00:00Z"
+    },
+    {
+      "id": "w-1",
+      "name": "Basavaraju M.",
+      "email": "basav@example.com",
+      "phone": "9845111222",
+      "role": "worker",
+      "language": "kn",
+      "addressLocality": "Gokulam",
+      "createdAt": "2026-09-10T09:00:00Z"
+    },
+    {
+      "id": "w-2",
+      "name": "Manjunath Swamy",
+      "email": "manju.tech@example.com",
+      "phone": "9845222333",
+      "role": "worker",
+      "language": "kn",
+      "addressLocality": "Vijayanagar",
+      "createdAt": "2026-09-12T09:00:00Z"
+    },
+    {
+      "id": "w-3",
+      "name": "Suresh Kumar",
+      "email": "suresh.paint@example.com",
+      "phone": "9845333444",
+      "role": "worker",
+      "language": "kn",
+      "addressLocality": "Kuvempunagar",
+      "createdAt": "2026-09-15T09:00:00Z"
+    },
+    {
+      "id": "w-4",
+      "name": "Anand Prasad",
+      "email": "anand.carpenter@example.com",
+      "phone": "9845444555",
+      "role": "worker",
+      "language": "en",
+      "addressLocality": "Saraswathipuram",
+      "createdAt": "2026-09-18T09:00:00Z"
+    },
+    {
+      "id": "w-5",
+      "name": "Prema Devi",
+      "email": "prema.clean@example.com",
+      "phone": "9845555666",
+      "role": "worker",
+      "language": "kn",
+      "addressLocality": "Jayalakshmipuram",
+      "createdAt": "2026-09-20T09:00:00Z"
+    },
+    {
+      "id": "w-6",
+      "name": "Chethan Gowda",
+      "email": "chethan.ac@example.com",
+      "phone": "9845666777",
+      "role": "worker",
+      "language": "kn",
+      "addressLocality": "Hebbal",
+      "createdAt": "2026-09-22T09:00:00Z"
+    },
+    {
+      "id": "s-owner-1",
+      "name": "Nagaraj Shenoy",
+      "email": "mysuru.hardware@example.com",
+      "phone": "9845777888",
+      "role": "shop",
+      "language": "kn",
+      "addressLocality": "Kuvempunagar",
+      "createdAt": "2026-09-01T08:00:00Z"
+    },
+    {
+      "id": "s-owner-2",
+      "name": "Ramesh Hegde",
+      "email": "gokulam.pipes@example.com",
+      "phone": "9845888999",
+      "role": "shop",
+      "language": "kn",
+      "addressLocality": "Gokulam",
+      "createdAt": "2026-09-02T08:00:00Z"
+    },
+    {
+      "id": "del-1",
+      "name": "Sunil D. (Mysuru Express Delivery)",
+      "email": "sunil.del@example.com",
+      "phone": "9845999000",
+      "role": "delivery",
+      "language": "kn",
+      "addressLocality": "Kuvempunagar",
+      "createdAt": "2026-09-05T08:00:00Z"
+    },
+    {
+      "id": "admin-1",
+      "name": "Admin Dept - Mysuru LocalFix",
+      "email": "admin@localfix.in",
+      "phone": "08212456789",
+      "role": "admin",
+      "language": "en",
+      "addressLocality": "Saraswathipuram",
+      "createdAt": "2026-08-01T08:00:00Z"
+    },
+    {
+      "id": "test-c-99",
+      "name": "Somanna Gowda",
+      "email": "somanna@mysuru.test",
+      "phone": "9845099999",
+      "role": "customer",
+      "language": "kn",
+      "addressLocality": "Gokulam",
+      "createdAt": "2026-10-24T15:52:06.349Z"
+    },
+    {
+      "id": "test-w-99",
+      "name": "Naveen Kumar",
+      "email": "naveen.plumb@mysuru.test",
+      "phone": "9845188888",
+      "role": "worker",
+      "language": "kn",
+      "addressLocality": "Vijayanagar",
+      "createdAt": "2026-10-24T15:52:06.350Z"
+    }
+  ],
+  "workerProfiles": [
+    {
+      "workerId": "w-1",
+      "primaryTrade": "Plumbing",
+      "secondaryTrades": [
+        "General Maintenance"
+      ],
+      "experienceYears": 12,
+      "hourlyBaseRate": 350,
+      "minInspectionFee": 150,
+      "serviceAreas": [
+        "Gokulam",
+        "Vijayanagar",
+        "Vontikoppal",
+        "Jayalakshmipuram"
+      ],
+      "currentLocality": "Gokulam",
+      "lat": 12.33,
+      "lng": 76.62,
+      "isAvailable": true,
+      "isVerified": true,
+      "verificationStatus": "VERIFIED",
+      "idType": "Aadhaar (Sample)",
+      "sampleDocumentRef": "DOC-MYS-7782-VERIFIED",
+      "rating": 4.9,
+      "totalReviews": 84,
+      "completedJobs": 180,
+      "languagesSpoken": [
+        "Kannada",
+        "English"
+      ],
+      "bio": "Expert residential and apartment plumber in Mysuru. Specialized in concealed pipe leaks, bathroom fixtures, and emergency tank repairs."
+    },
+    {
+      "workerId": "w-2",
+      "primaryTrade": "Electrical Services",
+      "secondaryTrades": [
+        "Appliance Repair"
+      ],
+      "experienceYears": 9,
+      "hourlyBaseRate": 400,
+      "minInspectionFee": 200,
+      "serviceAreas": [
+        "Vijayanagar",
+        "Gokulam",
+        "Hebbal",
+        "Saraswathipuram"
+      ],
+      "currentLocality": "Vijayanagar",
+      "lat": 12.335,
+      "lng": 76.602,
+      "isAvailable": true,
+      "isVerified": true,
+      "verificationStatus": "VERIFIED",
+      "idType": "Trade Cert (Sample)",
+      "sampleDocumentRef": "CERT-MYS-ELEC-4412",
+      "rating": 4.95,
+      "totalReviews": 112,
+      "completedJobs": 240,
+      "languagesSpoken": [
+        "Kannada",
+        "Hindi",
+        "English"
+      ],
+      "bio": "Licensed wireman with 9 years of domestic wiring, MCB distribution board troubleshooting, and invertor/solar installations."
+    },
+    {
+      "workerId": "w-3",
+      "primaryTrade": "Painting",
+      "secondaryTrades": [
+        "General Maintenance"
+      ],
+      "experienceYears": 8,
+      "hourlyBaseRate": 300,
+      "minInspectionFee": 100,
+      "serviceAreas": [
+        "Kuvempunagar",
+        "Saraswathipuram",
+        "Chamundipuram",
+        "Dattagalli"
+      ],
+      "currentLocality": "Kuvempunagar",
+      "lat": 12.285,
+      "lng": 76.625,
+      "isAvailable": true,
+      "isVerified": true,
+      "verificationStatus": "VERIFIED",
+      "idType": "Voter ID (Sample)",
+      "sampleDocumentRef": "VOTER-KA-MYS-9921",
+      "rating": 4.85,
+      "totalReviews": 62,
+      "completedJobs": 120,
+      "languagesSpoken": [
+        "Kannada",
+        "Tamil"
+      ],
+      "bio": "Interior and exterior painting specialist. High precision roller finishes, waterproofing sealants, and moisture treatment."
+    },
+    {
+      "workerId": "w-4",
+      "primaryTrade": "Carpentry",
+      "secondaryTrades": [
+        "General Maintenance"
+      ],
+      "experienceYears": 14,
+      "hourlyBaseRate": 450,
+      "minInspectionFee": 200,
+      "serviceAreas": [
+        "Saraswathipuram",
+        "Kuvempunagar",
+        "Jayalakshmipuram",
+        "Nazarbad"
+      ],
+      "currentLocality": "Saraswathipuram",
+      "lat": 12.302,
+      "lng": 76.632,
+      "isAvailable": true,
+      "isVerified": true,
+      "verificationStatus": "VERIFIED",
+      "idType": "Aadhaar (Sample)",
+      "sampleDocumentRef": "DOC-MYS-NEW-APPLICANT",
+      "rating": 4.88,
+      "totalReviews": 45,
+      "completedJobs": 95,
+      "languagesSpoken": [
+        "Kannada",
+        "Telugu",
+        "English"
+      ],
+      "bio": "Bespoke teak and plywood carpentry, modular kitchen hinge adjustments, lock replacements, and custom shelves."
+    },
+    {
+      "workerId": "w-5",
+      "primaryTrade": "Cleaning & Housekeeping",
+      "secondaryTrades": [
+        "Cooking & Household Assistance"
+      ],
+      "experienceYears": 6,
+      "hourlyBaseRate": 250,
+      "minInspectionFee": 100,
+      "serviceAreas": [
+        "Jayalakshmipuram",
+        "Gokulam",
+        "Vontikoppal",
+        "Vijayanagar"
+      ],
+      "currentLocality": "Jayalakshmipuram",
+      "lat": 12.318,
+      "lng": 76.628,
+      "isAvailable": true,
+      "isVerified": true,
+      "verificationStatus": "VERIFIED",
+      "idType": "Aadhaar (Sample)",
+      "sampleDocumentRef": "DOC-MYS-CLEAN-5531",
+      "rating": 4.92,
+      "totalReviews": 130,
+      "completedJobs": 310,
+      "languagesSpoken": [
+        "Kannada",
+        "Hindi"
+      ],
+      "bio": "Eco-friendly deep cleaning for villas and apartments. Kitchen de-greasing, bathroom descaling, and pre-move-in sanitization."
+    },
+    {
+      "workerId": "w-6",
+      "primaryTrade": "AC Installation & Repair",
+      "secondaryTrades": [
+        "Appliance Repair",
+        "Electrical Services"
+      ],
+      "experienceYears": 10,
+      "hourlyBaseRate": 500,
+      "minInspectionFee": 250,
+      "serviceAreas": [
+        "Hebbal",
+        "Vijayanagar",
+        "Bannimantap",
+        "Gokulam"
+      ],
+      "currentLocality": "Hebbal",
+      "lat": 12.36,
+      "lng": 76.61,
+      "isAvailable": true,
+      "isVerified": true,
+      "verificationStatus": "VERIFIED",
+      "idType": "Trade Cert (Sample)",
+      "sampleDocumentRef": "CERT-HVAC-MYS-8821",
+      "rating": 4.91,
+      "totalReviews": 76,
+      "completedJobs": 160,
+      "languagesSpoken": [
+        "Kannada",
+        "English"
+      ],
+      "bio": "Certified split and inverter AC technician. Gas recharging, copper pipe flare repairs, filter maintenance, and PCB diagnosis."
+    },
+    {
+      "workerId": "test-w-99",
+      "primaryTrade": "Plumbing",
+      "secondaryTrades": [],
+      "experienceYears": 3,
+      "hourlyBaseRate": 420,
+      "minInspectionFee": 150,
+      "serviceAreas": [
+        "Vijayanagar"
+      ],
+      "currentLocality": "Vijayanagar",
+      "lat": 12.335,
+      "lng": 76.602,
+      "isAvailable": true,
+      "isVerified": false,
+      "verificationStatus": "PENDING",
+      "idType": "Aadhaar (Sample)",
+      "sampleDocumentRef": "DOC-NEW-1792857126351",
+      "rating": 5,
+      "totalReviews": 1,
+      "completedJobs": 0,
+      "languagesSpoken": [
+        "Kannada",
+        "English"
+      ],
+      "bio": "Licensed plumber with pipe joint certifications."
+    }
+  ],
+  "categories": [
+    {
+      "id": "cat-1",
+      "key": "plumbing",
+      "name": "Plumbing Services",
+      "icon": "Wrench",
+      "baseInspectionFee": 150,
+      "active": true,
+      "description": "Leak repairs, tap fittings, PVC drain lines, geyser water connections"
+    },
+    {
+      "id": "cat-2",
+      "key": "electrical",
+      "name": "Electrical Services",
+      "icon": "Zap",
+      "baseInspectionFee": 200,
+      "active": true,
+      "description": "Short-circuit fixing, MCB tripping, switch replacements, fan mounting"
+    },
+    {
+      "id": "cat-3",
+      "key": "painting",
+      "name": "Painting & Waterproofing",
+      "icon": "Paintbrush",
+      "baseInspectionFee": 100,
+      "active": true,
+      "description": "Interior walls, putty touchups, exterior weather-guard, waterproofing"
+    },
+    {
+      "id": "cat-4",
+      "key": "cleaning",
+      "name": "Housekeeping & Deep Cleaning",
+      "icon": "Sparkles",
+      "baseInspectionFee": 100,
+      "active": true,
+      "description": "Apartment deep clean, kitchen descaling, bathroom scrubbing, floor buffing"
+    },
+    {
+      "id": "cat-5",
+      "key": "carpentry",
+      "name": "Carpentry & Woodwork",
+      "icon": "Hammer",
+      "baseInspectionFee": 200,
+      "active": true,
+      "description": "Door alignment, lock installation, cabinet repair, custom shelving"
+    },
+    {
+      "id": "cat-6",
+      "key": "appliance",
+      "name": "Appliance Repair",
+      "icon": "Cpu",
+      "baseInspectionFee": 200,
+      "active": true,
+      "description": "Washing machines, microwave ovens, water purifiers, refrigerators"
+    },
+    {
+      "id": "cat-7",
+      "key": "ac",
+      "name": "AC Installation & Repair",
+      "icon": "Wind",
+      "baseInspectionFee": 250,
+      "active": true,
+      "description": "Filter cleaning, refrigerant topup, outdoor unit servicing, bracket install"
+    },
+    {
+      "id": "cat-8",
+      "key": "cooking",
+      "name": "Cooking & Home Assistance",
+      "icon": "Utensils",
+      "baseInspectionFee": 100,
+      "active": true,
+      "description": "South Indian & North Indian daily household meals, event assistance"
+    },
+    {
+      "id": "cat-9",
+      "key": "maintenance",
+      "name": "General Maintenance",
+      "icon": "Tool",
+      "baseInspectionFee": 150,
+      "active": true,
+      "description": "Drilling, curtain rod installation, mirror hanging, minor fixups"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "b-101",
+      "bookingNumber": "LF-26-8910",
+      "customerId": "c-1",
+      "customerName": "Kavitha S.",
+      "customerPhone": "9845012345",
+      "workerId": "w-1",
+      "workerName": "Basavaraju M.",
+      "trade": "Plumbing",
+      "serviceCategory": "Plumbing Services",
+      "description": "Major concealed water leakage behind the kitchen sink wall. Needs urgent inspection and pipe repair.",
+      "address": "House #42, 6th Main, Gokulam 3rd Stage",
+      "locality": "Gokulam",
+      "customerLat": 12.33,
+      "customerLng": 76.62,
+      "distanceKm": 0.8,
+      "requestedDate": "2026-10-24",
+      "requestedTimeSlot": "10:00 AM - 12:00 PM",
+      "isEmergency": true,
+      "status": "WORK_IN_PROGRESS",
+      "bookingFeeAmount": 30,
+      "platformFeePortion": 20,
+      "opsFeePortion": 10,
+      "agreedLaborAmount": 500,
+      "additionalWorkAmount": 180,
+      "additionalWorkDescription": "Found rotted brass coupling behind tiles. Requires chisel chipping and new brass adapter fitting.",
+      "additionalWorkApproved": true,
+      "paymentMode": "DIRECT_CASH_OR_UPI",
+      "paymentStatus": "UNPAID",
+      "createdAt": "2026-10-24T06:15:00Z",
+      "updatedAt": "2026-10-24T07:30:00Z"
+    },
+    {
+      "id": "b-102",
+      "bookingNumber": "LF-26-8911",
+      "customerId": "c-2",
+      "customerName": "Rajesh Rao",
+      "customerPhone": "9845023456",
+      "workerId": "w-2",
+      "workerName": "Manjunath Swamy",
+      "trade": "Electrical Services",
+      "serviceCategory": "Electrical Services",
+      "description": "Main tripping issue when geyser is switched on. Smelled slight burning near distribution board.",
+      "address": "Flat 203, Nilaya Heights, Vijayanagar 1st Stage",
+      "locality": "Vijayanagar",
+      "customerLat": 12.335,
+      "customerLng": 76.602,
+      "distanceKm": 1.2,
+      "requestedDate": "2026-10-24",
+      "requestedTimeSlot": "02:00 PM - 04:00 PM",
+      "isEmergency": false,
+      "status": "NEGOTIATION",
+      "bookingFeeAmount": 30,
+      "platformFeePortion": 20,
+      "opsFeePortion": 10,
+      "paymentMode": "DIRECT_CASH_OR_UPI",
+      "paymentStatus": "UNPAID",
+      "createdAt": "2026-10-24T07:00:00Z",
+      "updatedAt": "2026-10-24T07:45:00Z"
+    },
+    {
+      "id": "b-103",
+      "bookingNumber": "LF-26-8912",
+      "customerId": "c-3",
+      "customerName": "Ananya Gowda",
+      "customerPhone": "9845034567",
+      "workerId": "w-3",
+      "workerName": "Suresh Kumar",
+      "trade": "Painting",
+      "serviceCategory": "Painting & Waterproofing",
+      "description": "Living room dampness treatment and two coat touch-up paint before Diwali.",
+      "address": "15th Cross, Kuvempunagar M-Block",
+      "locality": "Kuvempunagar",
+      "customerLat": 12.285,
+      "customerLng": 76.625,
+      "distanceKm": 0.5,
+      "requestedDate": "2026-10-23",
+      "requestedTimeSlot": "09:00 AM - 01:00 PM",
+      "isEmergency": false,
+      "status": "COMPLETED",
+      "bookingFeeAmount": 30,
+      "platformFeePortion": 20,
+      "opsFeePortion": 10,
+      "agreedLaborAmount": 850,
+      "paymentMode": "DIRECT_CASH_OR_UPI",
+      "paymentStatus": "PAID_TO_WORKER",
+      "createdAt": "2026-10-23T08:00:00Z",
+      "updatedAt": "2026-10-23T14:30:00Z"
+    },
+    {
+      "id": "b-104",
+      "bookingNumber": "LF-26-8913",
+      "customerId": "c-4",
+      "customerName": "Vikram Patel",
+      "customerPhone": "9845045678",
+      "workerId": "w-4",
+      "workerName": "Anand Prasad",
+      "trade": "Carpentry",
+      "serviceCategory": "Carpentry & Woodwork",
+      "description": "Teak main door lock replacement and hinge alignment.",
+      "address": "8th Main, Saraswathipuram",
+      "locality": "Saraswathipuram",
+      "customerLat": 12.302,
+      "customerLng": 76.632,
+      "distanceKm": 0.7,
+      "requestedDate": "2026-10-22",
+      "requestedTimeSlot": "11:00 AM - 01:00 PM",
+      "isEmergency": false,
+      "status": "DISPUTED",
+      "bookingFeeAmount": 30,
+      "platformFeePortion": 20,
+      "opsFeePortion": 10,
+      "agreedLaborAmount": 600,
+      "disputeId": "disp-1",
+      "paymentMode": "DIRECT_CASH_OR_UPI",
+      "paymentStatus": "UNPAID",
+      "createdAt": "2026-10-22T09:00:00Z",
+      "updatedAt": "2026-10-22T16:00:00Z"
+    },
+    {
+      "id": "tb-101",
+      "bookingNumber": "LF-TEST-001",
+      "customerId": "test-c-99",
+      "customerName": "Somanna Gowda",
+      "customerPhone": "9845099999",
+      "workerId": "test-w-99",
+      "workerName": "Naveen Kumar",
+      "trade": "Plumbing",
+      "serviceCategory": "Plumbing Services",
+      "description": "Bathroom mixer leak inspection",
+      "address": "10th Cross, Gokulam 2nd Stage",
+      "locality": "Gokulam",
+      "requestedDate": "2026-10-25",
+      "requestedTimeSlot": "11:00 AM - 01:00 PM",
+      "isEmergency": false,
+      "status": "COMPLETED",
+      "bookingFeeAmount": 30,
+      "platformFeePortion": 20,
+      "opsFeePortion": 10,
+      "paymentMode": "DIRECT_CASH_OR_UPI",
+      "paymentStatus": "PAID_TO_WORKER",
+      "createdAt": "2026-10-24T15:52:06.351Z",
+      "updatedAt": "2026-10-24T15:52:06.368Z",
+      "agreedLaborAmount": 500,
+      "additionalWorkDescription": "Unneeded luxury valve addition",
+      "additionalWorkAmount": 0,
+      "additionalWorkApproved": false,
+      "disputeId": "tdisp-01"
+    },
+    {
+      "id": "tb-neg",
+      "bookingNumber": "LF-NEG-001",
+      "customerId": "test-c-99",
+      "customerName": "Somanna Gowda",
+      "customerPhone": "9845099999",
+      "workerId": "test-w-99",
+      "workerName": "Naveen Kumar",
+      "trade": "Plumbing",
+      "serviceCategory": "Plumbing Services",
+      "description": "Pipe rewiring",
+      "address": "Gokulam",
+      "locality": "Gokulam",
+      "requestedDate": "2026-10-25",
+      "requestedTimeSlot": "Morning",
+      "isEmergency": false,
+      "status": "CANCELLED",
+      "bookingFeeAmount": 30,
+      "platformFeePortion": 20,
+      "opsFeePortion": 10,
+      "paymentMode": "DIRECT_CASH_OR_UPI",
+      "paymentStatus": "UNPAID",
+      "createdAt": "2026-10-24T15:52:06.354Z",
+      "updatedAt": "2026-10-24T15:52:06.359Z",
+      "agreedLaborAmount": 600,
+      "cancellationReason": "Mutual agreement - customer postponed renovation",
+      "cancelledBy": "CUSTOMER"
+    }
+  ],
+  "quotations": [
+    {
+      "id": "q-101",
+      "bookingId": "b-101",
+      "workerId": "w-1",
+      "proposedAmount": 500,
+      "inspectionFindings": "Inspected with pressure gauge. Found ruptured elbow joint inside sink wall. Labor includes wall opening, joint swap, and plaster sealing.",
+      "status": "ACCEPTED",
+      "history": [
+        {
+          "amount": 500,
+          "sender": "WORKER",
+          "note": "Initial formal quotation after physical inspection",
+          "timestamp": "2026-10-24T06:30:00Z"
+        },
+        {
+          "amount": 500,
+          "sender": "CUSTOMER",
+          "note": "Accepted quote. Proceed with work immediately.",
+          "timestamp": "2026-10-24T06:35:00Z"
+        }
+      ],
+      "createdAt": "2026-10-24T06:30:00Z",
+      "updatedAt": "2026-10-24T06:35:00Z"
+    },
+    {
+      "id": "q-102",
+      "bookingId": "b-102",
+      "workerId": "w-2",
+      "proposedAmount": 550,
+      "inspectionFindings": "Inspection revealed charred 16A MCB terminal and degraded 2.5mm copper cable insulation leading to geyser circuit.",
+      "status": "COUNTER_OFFERED",
+      "customerCounterAmount": 450,
+      "counterNotes": "Can we agree on ₹450 if I provide the spare MCB myself?",
+      "history": [
+        {
+          "amount": 550,
+          "sender": "WORKER",
+          "note": "Rewire geyser line + replace charred terminal block",
+          "timestamp": "2026-10-24T07:15:00Z"
+        },
+        {
+          "amount": 450,
+          "sender": "CUSTOMER",
+          "note": "Counter offer: Customer will supply spare MCB",
+          "timestamp": "2026-10-24T07:40:00Z"
+        }
+      ],
+      "createdAt": "2026-10-24T07:15:00Z",
+      "updatedAt": "2026-10-24T07:40:00Z"
+    },
+    {
+      "id": "tq-101",
+      "bookingId": "tb-101",
+      "workerId": "test-w-99",
+      "proposedAmount": 500,
+      "inspectionFindings": "Defective ceramic cartridge in wall mixer",
+      "status": "PENDING",
+      "history": [
+        {
+          "amount": 500,
+          "sender": "WORKER",
+          "note": "Initial quotation",
+          "timestamp": "2026-10-24T15:52:06.352Z"
+        }
+      ],
+      "createdAt": "2026-10-24T15:52:06.352Z",
+      "updatedAt": "2026-10-24T15:52:06.352Z"
+    },
+    {
+      "id": "tq-neg",
+      "bookingId": "tb-neg",
+      "workerId": "test-w-99",
+      "proposedAmount": 600,
+      "inspectionFindings": "Full pipeline replacement",
+      "status": "COUNTER_OFFERED",
+      "customerCounterAmount": 480,
+      "counterNotes": "Counter budget offer",
+      "history": [
+        {
+          "amount": 600,
+          "sender": "WORKER",
+          "note": "Quote",
+          "timestamp": "2026-10-24T15:52:06.355Z"
+        },
+        {
+          "amount": 480,
+          "sender": "CUSTOMER",
+          "note": "Counter offer",
+          "timestamp": "2026-10-24T15:52:06.355Z"
+        }
+      ],
+      "createdAt": "2026-10-24T15:52:06.355Z",
+      "updatedAt": "2026-10-24T15:52:06.355Z"
+    }
+  ],
+  "additionalWorkRequests": [
+    {
+      "id": "add-1",
+      "bookingId": "b-101",
+      "workerId": "w-1",
+      "description": "Found rotted brass coupling behind tiles. Requires chisel chipping and new brass adapter fitting.",
+      "estimatedCost": 180,
+      "status": "APPROVED",
+      "requestedAt": "2026-10-24T07:10:00Z",
+      "respondedAt": "2026-10-24T07:15:00Z"
+    },
+    {
+      "id": "taw-1",
+      "bookingId": "tb-101",
+      "workerId": "test-w-99",
+      "description": "Wall concealed rust bypass required",
+      "estimatedCost": 200,
+      "status": "APPROVED",
+      "requestedAt": "2026-10-24T15:52:06.356Z",
+      "respondedAt": "2026-10-24T15:52:06.357Z"
+    },
+    {
+      "id": "taw-reject",
+      "bookingId": "tb-101",
+      "workerId": "test-w-99",
+      "description": "Unneeded luxury valve addition",
+      "estimatedCost": 350,
+      "status": "REJECTED",
+      "requestedAt": "2026-10-24T15:52:06.357Z",
+      "respondedAt": "2026-10-24T15:52:06.359Z"
+    }
+  ],
+  "materialShops": [
+    {
+      "id": "shop-1",
+      "name": "Mysuru Central Hardware & Pipes",
+      "ownerId": "s-owner-1",
+      "locality": "Kuvempunagar",
+      "address": "Shop 14, 5th Cross, Near Complex, Kuvempunagar, Mysuru",
+      "phone": "0821-2541122",
+      "lat": 12.285,
+      "lng": 76.625,
+      "operatingHours": "08:30 AM - 09:00 PM",
+      "commissionRatePercent": 5,
+      "isVerified": true,
+      "rating": 4.8
+    },
+    {
+      "id": "shop-2",
+      "name": "Gokulam Electricals & Sanitary Supplies",
+      "ownerId": "s-owner-2",
+      "locality": "Gokulam",
+      "address": "12 Temple Road, 3rd Stage, Gokulam, Mysuru",
+      "phone": "0821-2512233",
+      "lat": 12.33,
+      "lng": 76.62,
+      "operatingHours": "08:00 AM - 09:30 PM",
+      "commissionRatePercent": 5,
+      "isVerified": true,
+      "rating": 4.9
+    },
+    {
+      "id": "shop-3",
+      "name": "Chamundi Timber, Paints & Tools",
+      "ownerId": "s-owner-1",
+      "locality": "Vijayanagar",
+      "address": "Plot 45, Ring Road Junction, Vijayanagar 2nd Stage, Mysuru",
+      "phone": "0821-2415566",
+      "lat": 12.335,
+      "lng": 76.602,
+      "operatingHours": "09:00 AM - 08:30 PM",
+      "commissionRatePercent": 5,
+      "isVerified": true,
+      "rating": 4.7
+    }
+  ],
+  "products": [
+    {
+      "id": "p-1",
+      "shopId": "shop-2",
+      "shopName": "Gokulam Electricals & Sanitary Supplies",
+      "category": "Plumbing",
+      "name": "CPVC 1-inch Pipe (10 ft, Finolex)",
+      "description": "Heavy duty pressure CPVC pipe for potable hot/cold water",
+      "unit": "piece",
+      "unitPrice": 280,
+      "inStock": true,
+      "stockQuantity": 45,
+      "deliveryMinutesEst": 15
+    },
+    {
+      "id": "p-2",
+      "shopId": "shop-2",
+      "shopName": "Gokulam Electricals & Sanitary Supplies",
+      "category": "Plumbing",
+      "name": "Brass Angle Valve 1/2 inch",
+      "description": "Quarter turn chrome-plated brass shutoff valve for geysers/toilets",
+      "unit": "piece",
+      "unitPrice": 195,
+      "inStock": true,
+      "stockQuantity": 30,
+      "deliveryMinutesEst": 15
+    },
+    {
+      "id": "p-3",
+      "shopId": "shop-1",
+      "shopName": "Mysuru Central Hardware & Pipes",
+      "category": "Plumbing",
+      "name": "Teflon Sealing Tape (Pack of 3)",
+      "description": "High density PTFE thread seal tape for leak-proof pipe joints",
+      "unit": "pack",
+      "unitPrice": 60,
+      "inStock": true,
+      "stockQuantity": 120,
+      "deliveryMinutesEst": 12
+    },
+    {
+      "id": "p-4",
+      "shopId": "shop-1",
+      "shopName": "Mysuru Central Hardware & Pipes",
+      "category": "Plumbing",
+      "name": "Flexible SS Braided Water Hose (45cm)",
+      "description": "Stainless steel braided connector pipe with brass hex nuts",
+      "unit": "piece",
+      "unitPrice": 140,
+      "inStock": true,
+      "stockQuantity": 50,
+      "deliveryMinutesEst": 12
+    },
+    {
+      "id": "p-5",
+      "shopId": "shop-2",
+      "shopName": "Gokulam Electricals & Sanitary Supplies",
+      "category": "Plumbing",
+      "name": "PVC Solvent Cement (100ml Tin)",
+      "description": "Quick-setting adhesive for PVC pipe joints and elbows",
+      "unit": "tin",
+      "unitPrice": 85,
+      "inStock": true,
+      "stockQuantity": 60,
+      "deliveryMinutesEst": 15
+    },
+    {
+      "id": "e-1",
+      "shopId": "shop-2",
+      "shopName": "Gokulam Electricals & Sanitary Supplies",
+      "category": "Electrical",
+      "name": "Anchor Roma 16A Modular Socket",
+      "description": "Child-proof shuttered 3-pin modular socket with indicator",
+      "unit": "piece",
+      "unitPrice": 125,
+      "inStock": true,
+      "stockQuantity": 80,
+      "deliveryMinutesEst": 15
+    },
+    {
+      "id": "e-2",
+      "shopId": "shop-2",
+      "shopName": "Gokulam Electricals & Sanitary Supplies",
+      "category": "Electrical",
+      "name": "Havells 2.5 sq mm FR Copper Wire (10m cut)",
+      "description": "Fire retardant grade multi-strand copper house wiring cable",
+      "unit": "bundle",
+      "unitPrice": 320,
+      "inStock": true,
+      "stockQuantity": 35,
+      "deliveryMinutesEst": 15
+    },
+    {
+      "id": "e-3",
+      "shopId": "shop-2",
+      "shopName": "Gokulam Electricals & Sanitary Supplies",
+      "category": "Electrical",
+      "name": "Schneider 32A Double Pole MCB",
+      "description": "C-curve miniature circuit breaker for main distribution box",
+      "unit": "piece",
+      "unitPrice": 390,
+      "inStock": true,
+      "stockQuantity": 25,
+      "deliveryMinutesEst": 15
+    },
+    {
+      "id": "e-4",
+      "shopId": "shop-1",
+      "shopName": "Mysuru Central Hardware & Pipes",
+      "category": "Electrical",
+      "name": "Insulation Electrical PVC Tape (Roll)",
+      "description": "Steelgrip flame-retardant insulating tape",
+      "unit": "roll",
+      "unitPrice": 20,
+      "inStock": true,
+      "stockQuantity": 200,
+      "deliveryMinutesEst": 12
+    },
+    {
+      "id": "pt-1",
+      "shopId": "shop-3",
+      "shopName": "Chamundi Timber, Paints & Tools",
+      "category": "Painting",
+      "name": "Asian Paints Apex Exterior White (4L)",
+      "description": "Weatherproof emulsion paint with anti-fungal silicon additives",
+      "unit": "bucket",
+      "unitPrice": 1150,
+      "inStock": true,
+      "stockQuantity": 18,
+      "deliveryMinutesEst": 18
+    },
+    {
+      "id": "pt-2",
+      "shopId": "shop-3",
+      "shopName": "Chamundi Timber, Paints & Tools",
+      "category": "Painting",
+      "name": "9-inch Wool Roller with Extension Handle",
+      "description": "Smooth wall micro-fiber paint roller",
+      "unit": "piece",
+      "unitPrice": 160,
+      "inStock": true,
+      "stockQuantity": 40,
+      "deliveryMinutesEst": 18
+    },
+    {
+      "id": "pt-3",
+      "shopId": "shop-3",
+      "shopName": "Chamundi Timber, Paints & Tools",
+      "category": "Painting",
+      "name": "Waterproof Wall Putty (5kg Bag, Birla)",
+      "description": "Polymer-based white cement putty for skimming uneven plaster",
+      "unit": "bag",
+      "unitPrice": 180,
+      "inStock": true,
+      "stockQuantity": 30,
+      "deliveryMinutesEst": 18
+    },
+    {
+      "id": "pt-4",
+      "shopId": "shop-1",
+      "shopName": "Mysuru Central Hardware & Pipes",
+      "category": "Painting",
+      "name": "Paper Masking Tape (2-inch, 20m)",
+      "description": "Residue-free painter masking tape for sharp border edges",
+      "unit": "roll",
+      "unitPrice": 75,
+      "inStock": true,
+      "stockQuantity": 90,
+      "deliveryMinutesEst": 12
+    },
+    {
+      "id": "cp-1",
+      "shopId": "shop-3",
+      "shopName": "Chamundi Timber, Paints & Tools",
+      "category": "Carpentry",
+      "name": "Stainless Steel Auto-Close Hinges (Pair)",
+      "description": "Concealed hydraulic soft-close cabinet hinges",
+      "unit": "pair",
+      "unitPrice": 180,
+      "inStock": true,
+      "stockQuantity": 50,
+      "deliveryMinutesEst": 18
+    },
+    {
+      "id": "cp-2",
+      "shopId": "shop-1",
+      "shopName": "Mysuru Central Hardware & Pipes",
+      "category": "Carpentry",
+      "name": "Drywall & Wood Screws Assorted (Box of 100)",
+      "description": "Zinc-coated countersunk head Phillips screws",
+      "unit": "box",
+      "unitPrice": 120,
+      "inStock": true,
+      "stockQuantity": 70,
+      "deliveryMinutesEst": 12
+    },
+    {
+      "id": "cp-3",
+      "shopId": "shop-3",
+      "shopName": "Chamundi Timber, Paints & Tools",
+      "category": "Carpentry",
+      "name": "Fevicol SH Wood Adhesive (500g)",
+      "description": "High bonding strength synthetic resin adhesive",
+      "unit": "bottle",
+      "unitPrice": 145,
+      "inStock": true,
+      "stockQuantity": 40,
+      "deliveryMinutesEst": 18
+    },
+    {
+      "id": "ap-1",
+      "shopId": "shop-2",
+      "shopName": "Gokulam Electricals & Sanitary Supplies",
+      "category": "Appliance",
+      "name": "Washing Machine Universal Drain Hose (2m)",
+      "description": "Flexible corrugated discharge pipe with clamp",
+      "unit": "piece",
+      "unitPrice": 130,
+      "inStock": true,
+      "stockQuantity": 30,
+      "deliveryMinutesEst": 15
+    },
+    {
+      "id": "ap-2",
+      "shopId": "shop-2",
+      "shopName": "Gokulam Electricals & Sanitary Supplies",
+      "category": "Appliance",
+      "name": "Microwave High-Voltage Fuse (0.75A 5kV)",
+      "description": "Universal replacement cartridge fuse for convection ovens",
+      "unit": "piece",
+      "unitPrice": 90,
+      "inStock": true,
+      "stockQuantity": 20,
+      "deliveryMinutesEst": 15
+    }
+  ],
+  "materialOrders": [
+    {
+      "id": "mo-1",
+      "orderNumber": "MAT-26-4412",
+      "bookingId": "b-101",
+      "workerId": "w-1",
+      "customerId": "c-1",
+      "customerName": "Kavitha S.",
+      "shopId": "shop-2",
+      "shopName": "Gokulam Electricals & Sanitary Supplies",
+      "items": [
+        {
+          "productId": "p-2",
+          "productName": "Brass Angle Valve 1/2 inch",
+          "quantity": 1,
+          "unitPrice": 195,
+          "subtotal": 195
+        },
+        {
+          "productId": "p-3",
+          "productName": "Teflon Sealing Tape (Pack of 3)",
+          "quantity": 1,
+          "unitPrice": 60,
+          "subtotal": 60
+        },
+        {
+          "productId": "p-5",
+          "productName": "PVC Solvent Cement (100ml Tin)",
+          "quantity": 1,
+          "unitPrice": 85,
+          "subtotal": 85
+        }
+      ],
+      "status": "OUT_FOR_DELIVERY",
+      "subtotalAmount": 340,
+      "deliveryFeeAmount": 30,
+      "totalAmount": 370,
+      "platformCommissionAmount": 17,
+      "shopPayableAmount": 323,
+      "deliveryPartnerPayableAmount": 30,
+      "paidByRole": "CUSTOMER",
+      "customerApproved": true,
+      "deliveryPartnerId": "del-1",
+      "deliveryPartnerName": "Sunil D. (Mysuru Express Delivery)",
+      "dropAddress": "House #42, 6th Main, Gokulam 3rd Stage, Mysuru",
+      "dropLocality": "Gokulam",
+      "createdAt": "2026-10-24T07:20:00Z",
+      "updatedAt": "2026-10-24T07:35:00Z"
+    },
+    {
+      "id": "tmo-1",
+      "orderNumber": "MAT-TEST-01",
+      "bookingId": "tb-101",
+      "workerId": "test-w-99",
+      "customerId": "test-c-99",
+      "customerName": "Somanna Gowda",
+      "shopId": "shop-2",
+      "shopName": "Gokulam Electricals & Sanitary Supplies",
+      "items": [
+        {
+          "productId": "p-1",
+          "productName": "CPVC Pipe",
+          "quantity": 2,
+          "unitPrice": 280,
+          "subtotal": 560
+        },
+        {
+          "productId": "p-3",
+          "productName": "Teflon Tape",
+          "quantity": 1,
+          "unitPrice": 60,
+          "subtotal": 60
+        }
+      ],
+      "status": "DELIVERED",
+      "subtotalAmount": 620,
+      "deliveryFeeAmount": 30,
+      "totalAmount": 650,
+      "platformCommissionAmount": 31,
+      "shopPayableAmount": 589,
+      "deliveryPartnerPayableAmount": 30,
+      "paidByRole": "CUSTOMER",
+      "customerApproved": true,
+      "dropAddress": "Gokulam 2nd Stage, Mysuru",
+      "dropLocality": "Gokulam",
+      "createdAt": "2026-10-24T15:52:06.363Z",
+      "updatedAt": "2026-10-24T15:52:06.367Z",
+      "deliveryPartnerId": "del-1"
+    }
+  ],
+  "disputes": [
+    {
+      "id": "disp-1",
+      "bookingId": "b-104",
+      "raisedByUserId": "c-4",
+      "raisedByRole": "CUSTOMER",
+      "reason": "Work Incomplete / Latch Scratch",
+      "description": "The worker installed the lock cylinder but left before adjusting the strike plate. The door now sticks and does not latch smoothly.",
+      "status": "UNDER_REVIEW",
+      "resolutionNote": "Admin has requested worker to return for free adjustment or issue a partial labor fee adjustment.",
+      "createdAt": "2026-10-22T16:00:00Z"
+    },
+    {
+      "id": "tdisp-01",
+      "bookingId": "tb-101",
+      "raisedByUserId": "test-c-99",
+      "raisedByRole": "CUSTOMER",
+      "reason": "Water pressure drop",
+      "description": "Post repair water pressure in shower dropped significantly.",
+      "status": "OPEN",
+      "createdAt": "2026-10-24T15:52:06.360Z"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "rev-1",
+      "bookingId": "b-103",
+      "customerId": "c-3",
+      "customerName": "Ananya Gowda",
+      "workerId": "w-3",
+      "rating": 5,
+      "comment": "Suresh was extremely punctual and neat. No paint splatters on my wooden furniture. Very honest pricing.",
+      "createdAt": "2026-10-23T15:00:00Z"
+    },
+    {
+      "id": "rev-valid",
+      "bookingId": "tb-101",
+      "customerId": "test-c-99",
+      "customerName": "Somanna",
+      "workerId": "test-w-99",
+      "rating": 5,
+      "comment": "Great work",
+      "createdAt": "2026-10-24T15:52:06.369Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "notif-1792857126363",
+      "userId": "s-owner-2",
+      "title": "New Material Dispatch Order",
+      "message": "Order MAT-TEST-01 placed for Gokulam. Total: ₹650.",
+      "type": "MATERIAL",
+      "linkId": "tmo-1",
+      "read": false,
+      "createdAt": "2026-10-24T15:52:06.363Z"
+    },
+    {
+      "id": "notif-1792857126359",
+      "userId": "test-w-99",
+      "title": "Additional Work Declined",
+      "message": "Customer declined additional work for LF-TEST-001.",
+      "type": "BOOKING",
+      "linkId": "tb-101",
+      "read": false,
+      "createdAt": "2026-10-24T15:52:06.359Z"
+    },
+    {
+      "id": "notif-1792857126357",
+      "userId": "test-c-99",
+      "title": "Additional Work Approval Required",
+      "message": "Naveen Kumar encountered unexpected issue: \"Unneeded luxury valve addition\" (+₹350). Please approve to proceed.",
+      "type": "BOOKING",
+      "linkId": "tb-101",
+      "read": false,
+      "createdAt": "2026-10-24T15:52:06.357Z"
+    },
+    {
+      "id": "notif-1792857126357",
+      "userId": "test-w-99",
+      "title": "Additional Work Approved",
+      "message": "Customer approved additional work for LF-TEST-001.",
+      "type": "BOOKING",
+      "linkId": "tb-101",
+      "read": false,
+      "createdAt": "2026-10-24T15:52:06.357Z"
+    },
+    {
+      "id": "notif-1792857126356",
+      "userId": "test-c-99",
+      "title": "Additional Work Approval Required",
+      "message": "Naveen Kumar encountered unexpected issue: \"Wall concealed rust bypass required\" (+₹200). Please approve to proceed.",
+      "type": "BOOKING",
+      "linkId": "tb-101",
+      "read": false,
+      "createdAt": "2026-10-24T15:52:06.356Z"
+    },
+    {
+      "id": "notif-1792857126355",
+      "userId": "test-c-99",
+      "title": "Technician Inspection Quotation Ready",
+      "message": "Naveen Kumar has submitted a quote of ₹600 for booking LF-NEG-001.",
+      "type": "QUOTE",
+      "linkId": "tb-neg",
+      "read": false,
+      "createdAt": "2026-10-24T15:52:06.355Z"
+    },
+    {
+      "id": "notif-1792857126354",
+      "userId": "test-w-99",
+      "title": "New Service Request in Mysuru",
+      "message": "Somanna Gowda has requested Plumbing Services at Gokulam.",
+      "type": "BOOKING",
+      "linkId": "tb-neg",
+      "read": false,
+      "createdAt": "2026-10-24T15:52:06.354Z"
+    },
+    {
+      "id": "notif-1792857126353",
+      "userId": "test-c-99",
+      "title": "Technician Inspection Quotation Ready",
+      "message": "Naveen Kumar has submitted a quote of ₹500 for booking LF-TEST-001.",
+      "type": "QUOTE",
+      "linkId": "tb-101",
+      "read": false,
+      "createdAt": "2026-10-24T15:52:06.353Z"
+    },
+    {
+      "id": "notif-1792857126351",
+      "userId": "test-w-99",
+      "title": "New Service Request in Mysuru",
+      "message": "Somanna Gowda has requested Plumbing Services at Gokulam.",
+      "type": "BOOKING",
+      "linkId": "tb-101",
+      "read": false,
+      "createdAt": "2026-10-24T15:52:06.351Z"
+    },
+    {
+      "id": "notif-1",
+      "userId": "c-1",
+      "title": "Material Order Out for Delivery",
+      "message": "Delivery partner Sunil D. is on the way with your plumbing materials (Order MAT-26-4412). ETA 12 mins.",
+      "type": "MATERIAL",
+      "linkId": "mo-1",
+      "read": false,
+      "createdAt": "2026-10-24T07:35:00Z"
+    },
+    {
+      "id": "notif-2",
+      "userId": "w-2",
+      "title": "Quotation Counter-Offer Received",
+      "message": "Customer Rajesh Rao proposed ₹450 for booking LF-26-8911. Please review in your Active Jobs.",
+      "type": "QUOTE",
+      "linkId": "b-102",
+      "read": false,
+      "createdAt": "2026-10-24T07:40:00Z"
+    },
+    {
+      "id": "notif-3",
+      "userId": "admin-1",
+      "title": "New Worker Verification Request",
+      "message": "Carpenter Anand Prasad has uploaded trade credentials for verification.",
+      "type": "SYSTEM",
+      "linkId": "w-4",
+      "read": false,
+      "createdAt": "2026-10-23T10:00:00Z"
+    }
+  ],
+  "platformSettings": {
+    "bookingFeeAmount": 30,
+    "platformFeePortion": 20,
+    "opsFeePortion": 10,
+    "shopCommissionPercent": 5,
+    "deliveryFeeBase": 30
+  },
+  "auditLogs": [
+    {
+      "id": "log-1792857126367",
+      "adminId": "admin-1",
+      "action": "VERIFY_WORKER",
+      "targetType": "WORKER",
+      "targetId": "w-4",
+      "details": "Worker verification status updated to VERIFIED",
+      "timestamp": "2026-10-24T15:52:06.367Z"
+    },
+    {
+      "id": "log-1792857126362",
+      "adminId": "SYSTEM",
+      "action": "DISPUTE_FILED",
+      "targetType": "BOOKING",
+      "targetId": "tb-101",
+      "details": "Dispute filed by CUSTOMER: Water pressure drop",
+      "timestamp": "2026-10-24T15:52:06.362Z"
+    },
+    {
+      "id": "log-1",
+      "adminId": "admin-1",
+      "action": "APPROVE_WORKER",
+      "targetType": "WORKER",
+      "targetId": "w-1",
+      "details": "Approved Basavaraju M. after Aadhaar and reference verification.",
+      "timestamp": "2026-09-11T11:00:00Z"
+    },
+    {
+      "id": "log-2",
+      "adminId": "admin-1",
+      "action": "UPDATE_SETTINGS",
+      "targetType": "PLATFORM_SETTINGS",
+      "targetId": "settings-core",
+      "details": "Configured standard booking fee to ₹30 with ₹20 platform revenue allocation.",
+      "timestamp": "2026-09-01T09:00:00Z"
+    }
+  ]
+}

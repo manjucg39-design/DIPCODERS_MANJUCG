@@ -1,8 +1,51 @@
-export type ServiceCategory = 'all' | 'Plumbing' | 'Electrical' | 'Painting' | 'Cleaning' | 'Carpentry';
+import {
+  User,
+  WorkerProfile,
+  ServiceCategory,
+  Booking,
+  Quotation,
+  AdditionalWorkRequest,
+  MaterialShop,
+  Product,
+  MaterialOrder,
+  Dispute,
+  Review,
+  Notification,
+  PlatformSettings,
+  AdminAuditLog,
+  BookingStatus,
+  DeliveryStatus,
+  UserRole,
+} from '../server/schema';
+
+export type {
+  User,
+  WorkerProfile,
+  ServiceCategory,
+  Booking,
+  Quotation,
+  AdditionalWorkRequest,
+  MaterialShop,
+  Product,
+  MaterialOrder,
+  Dispute,
+  Review,
+  Notification,
+  PlatformSettings,
+  AdminAuditLog,
+  BookingStatus,
+  DeliveryStatus,
+  UserRole,
+};
+
+export interface WorkerWithDistance extends WorkerProfile {
+  user: User;
+  distanceKm: number;
+}
 
 export interface ServiceCardItem {
   id: string;
-  name: ServiceCategory;
+  name: string;
   title: string;
   shortDesc: string;
   image: string;
@@ -14,7 +57,7 @@ export interface ServiceCardItem {
 export interface Worker {
   id: string;
   name: string;
-  trade: 'Plumbing' | 'Electrical' | 'Painting' | 'Cleaning' | 'Carpentry';
+  trade: string;
   rating: number;
   reviewsCount: number;
   jobsCompleted: number;
@@ -26,27 +69,4 @@ export interface Worker {
   specialties: string[];
   avatarUrl?: string;
   bio: string;
-}
-
-export interface BookingFormState {
-  workerId?: string;
-  workerName?: string;
-  serviceCategory: string;
-  customerName: string;
-  customerPhone: string;
-  customerAddress: string;
-  preferredDate: string;
-  urgency: 'routine' | 'today' | 'emergency';
-  notes: string;
-}
-
-export interface WorkerApplicationState {
-  fullName: string;
-  trade: 'Plumbing' | 'Electrical' | 'Painting' | 'Cleaning' | 'Carpentry';
-  phone: string;
-  email: string;
-  neighborhood: string;
-  hourlyRate: string;
-  yearsOfExperience: string;
-  licensed: boolean;
 }
