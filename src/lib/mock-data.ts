@@ -6,7 +6,8 @@
 
 import type {
   User, WorkerProfile, ServiceCategory, ServiceArea, Booking,
-  Quotation, Notification, FinancialSummary, Review, DirectPaymentReport
+  Quotation, Notification, FinancialSummary, Review, DirectPaymentReport,
+  RepairIssue, RepairMaterial
 } from '../types/domain';
 
 // ─── Platform Config ───────────────────────────────────────────────────────
@@ -394,4 +395,81 @@ export const MOCK_DIRECT_PAYMENTS: DirectPaymentReport[] = [
     counterparty_confirmed_at: '2024-01-17T13:00:00Z',
     created_at: '2024-01-17T12:30:00Z',
   },
+];
+
+// ─── Repair Issue Types (per category) ─────────────────────────────────────
+export const REPAIR_ISSUES: RepairIssue[] = [
+  // Plumbing (cat-1)
+  { id: 'ri-p-1',  service_category_id: 'cat-1', name: 'Tap / Faucet Leakage',         is_active: true },
+  { id: 'ri-p-2',  service_category_id: 'cat-1', name: 'Tap Replacement',               is_active: true },
+  { id: 'ri-p-3',  service_category_id: 'cat-1', name: 'Pipe Leakage',                  is_active: true },
+  { id: 'ri-p-4',  service_category_id: 'cat-1', name: 'Water Pipe Blockage',           is_active: true },
+  { id: 'ri-p-5',  service_category_id: 'cat-1', name: 'Bathroom Fitting Problem',      is_active: true },
+  { id: 'ri-p-6',  service_category_id: 'cat-1', name: 'Sink Leakage',                  is_active: true },
+  { id: 'ri-p-7',  service_category_id: 'cat-1', name: 'Drainage Blockage',             is_active: true },
+  { id: 'ri-p-8',  service_category_id: 'cat-1', name: 'Shower Problem',                is_active: true },
+  { id: 'ri-p-9',  service_category_id: 'cat-1', name: 'Toilet / Washroom Problem',     is_active: true },
+  { id: 'ri-p-10', service_category_id: 'cat-1', name: 'Low Water Pressure',            is_active: true },
+  { id: 'ri-p-11', service_category_id: 'cat-1', name: 'Other Plumbing Issue',          is_active: true },
+  // Electrical (cat-2)
+  { id: 'ri-e-1',  service_category_id: 'cat-2', name: 'Fan Not Working',               is_active: true },
+  { id: 'ri-e-2',  service_category_id: 'cat-2', name: 'Light / Fitting Problem',       is_active: true },
+  { id: 'ri-e-3',  service_category_id: 'cat-2', name: 'MCB / Fuse Tripping',           is_active: true },
+  { id: 'ri-e-4',  service_category_id: 'cat-2', name: 'Switch / Socket Not Working',   is_active: true },
+  { id: 'ri-e-5',  service_category_id: 'cat-2', name: 'New Wiring / Extension',        is_active: true },
+  { id: 'ri-e-6',  service_category_id: 'cat-2', name: 'Other Electrical Issue',        is_active: true },
+  // Carpentry (cat-3)
+  { id: 'ri-c-1',  service_category_id: 'cat-3', name: 'Door / Window Repair',          is_active: true },
+  { id: 'ri-c-2',  service_category_id: 'cat-3', name: 'Lock / Handle Replacement',    is_active: true },
+  { id: 'ri-c-3',  service_category_id: 'cat-3', name: 'Furniture Repair',              is_active: true },
+  { id: 'ri-c-4',  service_category_id: 'cat-3', name: 'Custom Woodwork',               is_active: true },
+  { id: 'ri-c-5',  service_category_id: 'cat-3', name: 'Other Carpentry Issue',         is_active: true },
+  // AC (cat-7)
+  { id: 'ri-a-1',  service_category_id: 'cat-7', name: 'AC Not Cooling',                is_active: true },
+  { id: 'ri-a-2',  service_category_id: 'cat-7', name: 'Gas Refill / Leak',             is_active: true },
+  { id: 'ri-a-3',  service_category_id: 'cat-7', name: 'AC Installation',               is_active: true },
+  { id: 'ri-a-4',  service_category_id: 'cat-7', name: 'AC Servicing / Cleaning',       is_active: true },
+  { id: 'ri-a-5',  service_category_id: 'cat-7', name: 'Other AC Issue',                is_active: true },
+];
+
+// ─── Repair Materials / Spare Parts (per category) ──────────────────────────
+export const REPAIR_MATERIALS: RepairMaterial[] = [
+  // Plumbing materials
+  { id: 'rm-p-1',  service_category_id: 'cat-1', name: 'Tap / Faucet',                 unit: 'piece',  default_price_paise:  80000, is_active: true },
+  { id: 'rm-p-2',  service_category_id: 'cat-1', name: 'Tap Cartridge',                unit: 'piece',  default_price_paise:  15000, is_active: true },
+  { id: 'rm-p-3',  service_category_id: 'cat-1', name: 'Tap Washer',                   unit: 'piece',  default_price_paise:   3000, is_active: true },
+  { id: 'rm-p-4',  service_category_id: 'cat-1', name: 'O-Ring',                       unit: 'piece',  default_price_paise:   2000, is_active: true },
+  { id: 'rm-p-5',  service_category_id: 'cat-1', name: 'Flexible Water Hose',          unit: 'piece',  default_price_paise:  18000, is_active: true },
+  { id: 'rm-p-6',  service_category_id: 'cat-1', name: 'PVC Pipe (1 ft)',              unit: 'piece',  default_price_paise:   5000, is_active: true },
+  { id: 'rm-p-7',  service_category_id: 'cat-1', name: 'PVC Elbow / Bend',             unit: 'piece',  default_price_paise:   3000, is_active: true },
+  { id: 'rm-p-8',  service_category_id: 'cat-1', name: 'PVC Connector / Joint',        unit: 'piece',  default_price_paise:   2500, is_active: true },
+  { id: 'rm-p-9',  service_category_id: 'cat-1', name: 'PTFE / Thread Seal Tape',      unit: 'roll',   default_price_paise:   4000, is_active: true },
+  { id: 'rm-p-10', service_category_id: 'cat-1', name: 'Ball Valve',                   unit: 'piece',  default_price_paise:  25000, is_active: true },
+  { id: 'rm-p-11', service_category_id: 'cat-1', name: 'Faucet Connector',             unit: 'piece',  default_price_paise:   8000, is_active: true },
+  { id: 'rm-p-12', service_category_id: 'cat-1', name: 'Sealant / Plumber\'s Putty',   unit: 'tube',   default_price_paise:  12000, is_active: true },
+  { id: 'rm-p-13', service_category_id: 'cat-1', name: 'PVC Adhesive / Solvent',       unit: 'bottle', default_price_paise:   9000, is_active: true },
+  { id: 'rm-p-14', service_category_id: 'cat-1', name: 'Drain Cleaner Chemical',       unit: 'bottle', default_price_paise:  15000, is_active: true },
+  { id: 'rm-p-15', service_category_id: 'cat-1', name: 'Toilet Flush Valve',           unit: 'piece',  default_price_paise:  35000, is_active: true },
+  // Electrical materials
+  { id: 'rm-e-1',  service_category_id: 'cat-2', name: 'MCB / Circuit Breaker',        unit: 'piece',  default_price_paise:  20000, is_active: true },
+  { id: 'rm-e-2',  service_category_id: 'cat-2', name: 'Fuse',                         unit: 'piece',  default_price_paise:   1000, is_active: true },
+  { id: 'rm-e-3',  service_category_id: 'cat-2', name: 'Electrical Wire (per meter)',  unit: 'meter',  default_price_paise:   3000, is_active: true },
+  { id: 'rm-e-4',  service_category_id: 'cat-2', name: 'Switch / Socket (modular)',    unit: 'piece',  default_price_paise:  12000, is_active: true },
+  { id: 'rm-e-5',  service_category_id: 'cat-2', name: 'Fan Capacitor',                unit: 'piece',  default_price_paise:  10000, is_active: true },
+  { id: 'rm-e-6',  service_category_id: 'cat-2', name: 'Fan Regulator',                unit: 'piece',  default_price_paise:  15000, is_active: true },
+  { id: 'rm-e-7',  service_category_id: 'cat-2', name: 'Connector / Wire Nut',         unit: 'piece',  default_price_paise:    500, is_active: true },
+  { id: 'rm-e-8',  service_category_id: 'cat-2', name: 'Insulation Tape',              unit: 'roll',   default_price_paise:   2000, is_active: true },
+  // Carpentry materials
+  { id: 'rm-c-1',  service_category_id: 'cat-3', name: 'Door Hinge',                   unit: 'piece',  default_price_paise:   8000, is_active: true },
+  { id: 'rm-c-2',  service_category_id: 'cat-3', name: 'Door Handle / Knob',           unit: 'piece',  default_price_paise:  18000, is_active: true },
+  { id: 'rm-c-3',  service_category_id: 'cat-3', name: 'Lock Set',                     unit: 'piece',  default_price_paise:  45000, is_active: true },
+  { id: 'rm-c-4',  service_category_id: 'cat-3', name: 'Wood Screws (box)',            unit: 'box',    default_price_paise:   5000, is_active: true },
+  { id: 'rm-c-5',  service_category_id: 'cat-3', name: 'Wood Adhesive / Fevicol',      unit: 'bottle', default_price_paise:  10000, is_active: true },
+  { id: 'rm-c-6',  service_category_id: 'cat-3', name: 'Plywood Sheet (small)',        unit: 'piece',  default_price_paise:  60000, is_active: true },
+  // AC materials
+  { id: 'rm-a-1',  service_category_id: 'cat-7', name: 'AC Gas (R-22, per refill)',    unit: 'refill', default_price_paise: 150000, is_active: true },
+  { id: 'rm-a-2',  service_category_id: 'cat-7', name: 'AC Filter',                    unit: 'piece',  default_price_paise:  20000, is_active: true },
+  { id: 'rm-a-3',  service_category_id: 'cat-7', name: 'Capacitor (AC)',               unit: 'piece',  default_price_paise:  40000, is_active: true },
+  { id: 'rm-a-4',  service_category_id: 'cat-7', name: 'Copper Pipe (per meter)',      unit: 'meter',  default_price_paise:  50000, is_active: true },
+  { id: 'rm-a-5',  service_category_id: 'cat-7', name: 'Insulation Sleeve',            unit: 'meter',  default_price_paise:  10000, is_active: true },
 ];

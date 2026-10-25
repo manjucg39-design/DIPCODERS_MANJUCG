@@ -54,19 +54,36 @@ export function getFulfillmentBadge(status: string): {
   className: string;
 } {
   const map: Record<string, { label: string; className: string }> = {
-    REQUESTED:          { label: 'Requested',          className: 'badge-info' },
-    AWAITING_WORKER:    { label: 'Finding Worker',     className: 'badge-warning' },
-    WORKER_ASSIGNED:    { label: 'Worker Assigned',    className: 'badge-primary' },
-    WORKER_ON_THE_WAY:  { label: 'Worker On The Way',  className: 'badge-primary' },
-    INSPECTION:         { label: 'Inspection',         className: 'badge-warning' },
-    QUOTATION_PENDING:  { label: 'Awaiting Quotation', className: 'badge-warning' },
-    IN_PROGRESS:        { label: 'In Progress',        className: 'badge-primary' },
-    COMPLETION_PENDING: { label: 'Completion Pending', className: 'badge-warning' },
-    MUTUALLY_COMPLETED: { label: 'Completed',          className: 'badge-success' },
-    CANCELLED:          { label: 'Cancelled',          className: 'badge-error' },
+    REQUESTED:                    { label: 'Requested',                 className: 'badge-info' },
+    WORKER_NOTIFIED:              { label: 'Finding Worker',            className: 'badge-warning' },
+    WORKER_ACCEPTED:              { label: 'Worker Applied',            className: 'badge-warning' },
+    CUSTOMER_REVIEWING:           { label: 'Review Candidates',         className: 'badge-warning' },
+    WORKER_SELECTED:              { label: 'Worker Selected',           className: 'badge-primary' },
+    CONFIRMED:                    { label: 'Confirmed',                 className: 'badge-primary' },
+    AWAITING_WORKER:              { label: 'Finding Worker',            className: 'badge-warning' },
+    WORKER_ASSIGNED:              { label: 'Worker Assigned',           className: 'badge-primary' },
+    WORKER_ON_THE_WAY:            { label: 'Worker On The Way',         className: 'badge-primary' },
+    WORKER_ARRIVED:               { label: 'Worker Arrived',            className: 'badge-primary' },
+    PROBLEM_INSPECTION:           { label: 'Inspecting Problem',        className: 'badge-warning' },
+    INSPECTION:                   { label: 'Inspection',                className: 'badge-warning' },
+    QUOTATION_CREATED:            { label: 'Quotation Created',         className: 'badge-warning' },
+    QUOTATION_PENDING:            { label: 'Awaiting Quotation',        className: 'badge-warning' },
+    CUSTOMER_REVIEWING_QUOTATION: { label: 'Review Estimate',           className: 'badge-warning' },
+    QUOTATION_ACCEPTED:           { label: 'Estimate Approved',         className: 'badge-success' },
+    SERVICE_STARTED:              { label: 'Service In Progress',       className: 'badge-primary' },
+    IN_PROGRESS:                  { label: 'In Progress',               className: 'badge-primary' },
+    SERVICE_COMPLETED:            { label: 'Service Completed',         className: 'badge-success' },
+    COMPLETION_PENDING:           { label: 'Completion Pending',        className: 'badge-warning' },
+    PAYMENT_PENDING:              { label: 'Payment Pending',           className: 'badge-warning' },
+    PAYMENT_COMPLETED:            { label: 'Payment Completed',         className: 'badge-success' },
+    MUTUALLY_COMPLETED:           { label: 'Completed',                 className: 'badge-success' },
+    CANCELLED:                    { label: 'Cancelled',                 className: 'badge-error' },
+    DISPUTED:                     { label: 'Disputed',                  className: 'badge-error' },
+    RESOLVED:                     { label: 'Resolved',                  className: 'badge-success' },
   };
   return map[status] ?? { label: status, className: 'badge-neutral' };
 }
+
 
 export function getPaymentBadge(status: string): {
   label: string;

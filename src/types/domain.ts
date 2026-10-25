@@ -177,12 +177,16 @@ export interface Booking {
 
 export type QuotationDecision = 'PENDING' | 'ACCEPTED' | 'REJECTED' | 'SUPERSEDED' | 'EXPIRED';
 
+export type SuppliedBy = 'WORKER' | 'CUSTOMER' | 'TBD';
+
 export interface QuotationLineItem {
   description: string;
   quantity: number;
   unit_price_paise: Paise;
   total_paise: Paise;
   type: 'LABOR' | 'MATERIAL' | 'TRAVEL' | 'OTHER';
+  supplied_by?: SuppliedBy;       // For MATERIAL items
+  material_id?: string;           // Reference to RepairMaterial if chosen from catalog
 }
 
 export interface Quotation {
@@ -199,6 +203,7 @@ export interface Quotation {
   decided_by?: string;
   created_by: string;
   created_at: string;
+  worker_note?: string;           // Optional note from worker to customer
 }
 
 // ─── Additional Work ───────────────────────────────────────────────────────
@@ -368,4 +373,37 @@ export interface ApiError {
   code: string;
   message: string;
   field_errors?: Record<string, string[]>;
+}
+
+// ─── Repair Issue Types ────────────────────────────────────────────────────
+
+export interface RepairIssue {
+  id: string;
+  service_category_id: string;   // links to ServiceCategory.id
+  name: string;
+  description?: string;
+  is_active: boolean;
+}
+
+// ─── Repair Materials / Spare Parts ───────────────────────────────────────
+
+export interface RepairMaterial {
+  id: string;
+  service_category_id: string;   // links to ServiceCategory.id
+  name: string;
+  description?: string;
+  default_price_paise?: Paise;   // optional suggested price
+  unit?: string;                 // e.g. 'piece', 'meter', 'litre'
+  is_active: boolean;
+}
+
+// ─── Problem Images ────────────────────────────────────────────────────────
+
+export interface ProblemImage {
+  id: string;
+  booking_id: string;
+  data_url: string;              // base64 data URL (frontend-only / dev)
+  file_name: string;
+  uploaded_by: string;           // user id
+  created_at: string;
 }

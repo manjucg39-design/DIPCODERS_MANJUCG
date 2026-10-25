@@ -1,41 +1,75 @@
 import React, { useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import {
   ArrowLeft, CheckCircle2, XCircle, Clock, Star, AlertTriangle,
-  MessageSquare, Shield, MapPin, Banknote, User
+  MessageSquare, Shield, MapPin, Banknote, Camera, ChevronDown,
+  Package, Wrench, Tag, Info, X, Eye, FileText
 } from 'lucide-react';
 import { MOCK_BOOKINGS, MOCK_QUOTATIONS, MOCK_DIRECT_PAYMENTS } from '../../lib/mock-data';
+import { BookingStore } from '../../lib/booking-store';
 import {
   getFulfillmentBadge, getPaymentBadge, getQuotationDecisionBadge,
   formatIST, formatPaise
 } from '../../lib/utils';
+import { useAuth } from '../../contexts/AuthContext';
+import type { SuppliedBy } from '../../types/domain';
+
+const suppliedByLabel: Record<SuppliedBy, string> = {
+  WORKER: 'Worker supplied',
+  CUSTOMER: 'Customer supplies',
+  TBD: 'To be decided',
+};
+
+const suppliedByClass: Record<SuppliedBy, string> = {
+  WORKER: 'badge-success',
+  CUSTOMER: 'badge-info',
+  TBD: 'badge-neutral',
+};
 
 export default function CustomerBookingDetail() {
   const { id } = useParams();
+  const { user } = useAuth();
   const navigate = useNavigate();
   const [reviewText, setReviewText] = useState('');
   const [reviewRating, setReviewRating] = useState(0);
   const [reviewSubmitted, setReviewSubmitted] = useState(false);
+  const [showImages, setShowImages] = useState(false);
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const [acceptingId, setAcceptingId] = useState<string | null>(null);
+  const [rejectingId, setRejectingId] = useState<string | null>(null);
 
-  // Find booking — in production this would be an API call
-  const booking = MOCK_BOOKINGS.find(b => b.id === id) || MOCK_BOOKINGS[0];
-  const quotations = MOCK_QUOTATIONS.filter(q => q.booking_id === booking.id);
-  const acceptedQuotation = quotations.find(q => q.decision === 'ACCEPTED');
-  const pendingQuotation = quotations.find(q => q.decision === 'PENDING');
-  const directPayment = MOCK_DIRECT_PAYMENTS.find(dp => dp.booking_id === booking.id);
+  // Prefer live store over static mock
+  const booking = BookingStore.getById(id ?? '') || MOCK_BOOKINGS.find(b => b.id === id) || MOCK_BOOKINGS[0];
+  const liveQuotations = [
+    ...BookingStore.getQuotations(id ?? ''),
+    ...MOCK_QUOTATIONS.filter(q => q.booking_id === booking.id),
+  ].filter((q, i, arr) => arr.findIndex(x => x.id === q.id) === i);
+
+  const acceptedQuotation = liveQuotations.find(q => q.decision === 'ACCEPTED');
+  const pendingQuotation  = liveQuotations.find(q => q.decision === 'PENDING');
+  const directPayment     = MOCK_DIRECT_PAYMENTS.find(dp => dp.booking_id === booking.id);
+  const problemImages     = BookingStore.getProblemImages(id ?? '');
 
   const statusBadge = getFulfillmentBadge(booking.fulfillment_status);
-  const payBadge = getPaymentBadge(booking.payment_status);
+  const payBadge    = getPaymentBadge(booking.payment_status);
 
   const canReview = booking.fulfillment_status === 'MUTUALLY_COMPLETED' && !reviewSubmitted;
 
-  const handleAcceptQuotation = (quotationId: string) => {
-    // In production: POST /api/v1/quotations/{id}/accept
-    alert(`[Dev] Accepting quotation ${quotationId}. In production this requires server verification of the exact quotation version.`);
+  const handleAcceptQuotation = async (quotationId: string) => {
+    setAcceptingId(quotationId);
+    await new Promise(r => setTimeout(r, 700));
+    const ok = BookingStore.acceptQuotation(quotationId, user?.id ?? '');
+    setAcceptingId(null);
+    if (!ok) alert('[Dev] Could not accept — quotation may no longer be pending.');
+    else window.location.reload(); // refresh to show updated state
   };
 
-  const handleRejectQuotation = (quotationId: string) => {
-    alert(`[Dev] Rejecting quotation ${quotationId}.`);
+  const handleRejectQuotation = async (quotationId: string) => {
+    setRejectingId(quotationId);
+    await new Promise(r => setTimeout(r, 700));
+    BookingStore.rejectQuotation(quotationId, user?.id ?? '');
+    setRejectingId(null);
+    window.location.reload();
   };
 
   const handleConfirmCompletion = () => {
@@ -48,7 +82,6 @@ export default function CustomerBookingDetail() {
 
   const handleSubmitReview = async () => {
     if (reviewRating === 0) return alert('Select a rating.');
-    // In production: POST /api/v1/reviews (only eligible customer, only once)
     setReviewSubmitted(true);
   };
 
@@ -75,10 +108,17 @@ export default function CustomerBookingDetail() {
         </div>
       </div>
 
-      {/* Service Details */}
-      <div className="card card-body">
-        <h2 className="text-heading-md text-dark-800 mb-3">Service Request</h2>
+      {/* Problem Details */}
+      <div className="card card-body space-y-4">
+        <h2 className="text-heading-md text-dark-800">Your Problem Details</h2>
         <div className="space-y-2 text-sm">
+          {(booking as any).issue_type_name && (
+            <div className="flex items-center gap-2">
+              <Tag className="w-4 h-4 text-primary-500 flex-shrink-0" />
+              <span className="text-dark-500">Problem Type:</span>
+              <strong className="text-dark-800">{(booking as any).issue_type_name}</strong>
+            </div>
+          )}
           <div className="flex items-start gap-2">
             <MapPin className="w-4 h-4 text-dark-400 mt-0.5 flex-shrink-0" />
             <span className="text-dark-600">{booking.service_area.locality}, Mysuru</span>
@@ -89,11 +129,50 @@ export default function CustomerBookingDetail() {
               <span className="text-dark-600">{booking.address_detail}</span>
             </div>
           )}
-          <p className="text-dark-700 mt-2">{booking.description}</p>
+          <div className="mt-2 p-3 bg-surface-50 rounded-xl">
+            <p className="text-dark-700 leading-relaxed">{booking.description}</p>
+          </div>
+          {(booking as any).notes && (
+            <p className="text-xs text-dark-400 italic">{(booking as any).notes}</p>
+          )}
         </div>
 
+        {/* Problem Photos */}
+        {problemImages.length > 0 && (
+          <div>
+            <button
+              onClick={() => setShowImages(v => !v)}
+              className="flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors"
+            >
+              <Camera className="w-4 h-4" />
+              {showImages ? 'Hide' : 'View'} your {problemImages.length} uploaded photo{problemImages.length !== 1 ? 's' : ''}
+              <ChevronDown className={`w-4 h-4 transition-transform ${showImages ? 'rotate-180' : ''}`} />
+            </button>
+            {showImages && (
+              <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 mt-3">
+                {problemImages.map(img => (
+                  <div
+                    key={img.id}
+                    className="relative aspect-square cursor-zoom-in"
+                    onClick={() => setLightboxSrc(img.data_url)}
+                  >
+                    <img
+                      src={img.data_url}
+                      alt={img.file_name}
+                      className="w-full h-full object-cover rounded-lg border border-surface-200 hover:opacity-85 transition-opacity"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+                      <Eye className="w-6 h-6 text-white drop-shadow-lg" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
         {booking.appointment_window && (
-          <div className="mt-4 bg-surface-50 rounded-xl p-3 flex items-center gap-3">
+          <div className="mt-2 bg-surface-50 rounded-xl p-3 flex items-center gap-3">
             <Clock className="w-5 h-5 text-primary-500" />
             <div>
               <p className="text-xs font-semibold text-dark-700">Appointment Window</p>
@@ -105,7 +184,7 @@ export default function CustomerBookingDetail() {
         )}
       </div>
 
-      {/* Assigned Worker + Tracking */}
+      {/* Assigned Worker */}
       {booking.worker && (
         <div className="card card-body">
           <h2 className="text-heading-md text-dark-800 mb-3">Assigned Worker</h2>
@@ -135,10 +214,154 @@ export default function CustomerBookingDetail() {
         </div>
       )}
 
+      {/* ── Quotations ──────────────────────────────────────────── */}
+      {liveQuotations.length > 0 && (
+        <div className="card card-body">
+          <h2 className="text-heading-md text-dark-800 mb-4 flex items-center gap-2">
+            <FileText className="w-5 h-5 text-primary-500" /> Repair Estimate
+          </h2>
+
+          {liveQuotations.map(q => {
+            const qBadge = getQuotationDecisionBadge(q.decision);
+            const materialItems = q.line_items.filter(li => li.type === 'MATERIAL');
+            const labourItems   = q.line_items.filter(li => li.type === 'LABOR');
+            const otherItems    = q.line_items.filter(li => !['MATERIAL', 'LABOR'].includes(li.type));
+            const matTotal      = materialItems.reduce((s, i) => s + i.total_paise, 0);
+            const labTotal      = labourItems.reduce((s, i) => s + i.total_paise, 0);
+
+            return (
+              <div key={q.id} className={`border rounded-xl p-4 mb-4 last:mb-0 ${q.decision === 'PENDING' ? 'border-amber-300 bg-amber-50/40' : 'border-surface-200'}`}>
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <p className="text-sm font-semibold text-dark-800">Version {q.version} — {q.scope}</p>
+                    <p className="text-xs text-dark-400">Submitted: {formatIST(q.created_at, 'dd MMM, hh:mm a')} IST</p>
+                    {q.decided_at && <p className="text-xs text-dark-400">Decision: {formatIST(q.decided_at, 'dd MMM, hh:mm a')} IST</p>}
+                  </div>
+                  <span className={qBadge.className}>{qBadge.label}</span>
+                </div>
+
+                {/* Materials */}
+                {materialItems.length > 0 && (
+                  <div className="mb-3">
+                    <p className="text-xs font-semibold text-dark-500 mb-2 flex items-center gap-1.5">
+                      <Package className="w-3.5 h-3.5" /> Materials &amp; Spare Parts
+                    </p>
+                    <div className="space-y-1">
+                      {materialItems.map((item, i) => (
+                        <div key={i} className="flex justify-between items-start text-sm py-1 border-b border-surface-100 last:border-0">
+                          <div>
+                            <span className="text-dark-700">{item.description} × {item.quantity}</span>
+                            {item.supplied_by && (
+                              <span className={`ml-2 badge text-[10px] ${suppliedByClass[item.supplied_by as SuppliedBy]}`}>
+                                {suppliedByLabel[item.supplied_by as SuppliedBy]}
+                              </span>
+                            )}
+                          </div>
+                          <span className="font-medium text-dark-800 ml-2">{formatPaise(item.total_paise)}</span>
+                        </div>
+                      ))}
+                      <div className="flex justify-between text-xs text-dark-500 pt-1">
+                        <span>Materials Subtotal</span>
+                        <span className="font-semibold">{formatPaise(matTotal)}</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Labour */}
+                {labourItems.length > 0 && (
+                  <div className="mb-3">
+                    <p className="text-xs font-semibold text-dark-500 mb-2 flex items-center gap-1.5">
+                      <Wrench className="w-3.5 h-3.5" /> Labour / Service Charge
+                    </p>
+                    {labourItems.map((item, i) => (
+                      <div key={i} className="flex justify-between text-sm py-1">
+                        <span className="text-dark-700">{item.description}</span>
+                        <span className="font-medium text-dark-800">{formatPaise(item.total_paise)}</span>
+                      </div>
+                    ))}
+                    <div className="flex justify-between text-xs text-dark-500 pt-1 border-t border-surface-100">
+                      <span>Labour Subtotal</span>
+                      <span className="font-semibold">{formatPaise(labTotal)}</span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Other */}
+                {otherItems.map((item, i) => (
+                  <div key={i} className="flex justify-between text-sm py-1">
+                    <span className="text-dark-700">{item.description} ({item.type})</span>
+                    <span className="font-medium text-dark-800">{formatPaise(item.total_paise)}</span>
+                  </div>
+                ))}
+
+                {/* Grand Total */}
+                <div className="flex justify-between items-center pt-3 border-t border-surface-200 mt-2">
+                  <span className="font-bold text-dark-800">Estimated Total</span>
+                  <span className="text-xl font-black text-dark-900">{formatPaise(q.total_paise)}</span>
+                </div>
+
+                <p className="text-xs text-dark-400 mt-1">
+                  Est. duration: {q.estimated_duration_minutes} min · Valid until: {formatIST(q.valid_until, 'dd MMM, hh:mm a')} IST
+                </p>
+
+                {/* Worker note */}
+                {q.worker_note && (
+                  <div className="mt-3 bg-surface-50 border border-surface-200 rounded-lg p-3 text-xs text-dark-600 italic">
+                    <Info className="w-3.5 h-3.5 inline mr-1 text-dark-400" />
+                    Worker note: "{q.worker_note}"
+                  </div>
+                )}
+
+                {/* Pending Actions */}
+                {q.decision === 'PENDING' && (
+                  <div className="mt-4 space-y-3">
+                    <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 text-xs text-amber-800">
+                      <AlertTriangle className="w-3.5 h-3.5 inline mr-1" />
+                      <strong>Review carefully.</strong> Accepting confirms you agree with the listed items and prices.
+                      You are only charged the service fee directly to the worker — not through this platform.
+                      If the worker finds additional issues on-site, they must get your approval first.
+                    </div>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => handleAcceptQuotation(q.id)}
+                        disabled={!!acceptingId}
+                        className="btn-primary btn-sm flex-1"
+                      >
+                        {acceptingId === q.id ? (
+                          <span className="flex items-center gap-2"><span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />Accepting…</span>
+                        ) : (
+                          <span className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4" />Accept Quotation</span>
+                        )}
+                      </button>
+                      <button
+                        onClick={() => handleRejectQuotation(q.id)}
+                        disabled={!!rejectingId}
+                        className="btn-danger btn-sm flex-1"
+                      >
+                        {rejectingId === q.id ? (
+                          <span className="flex items-center gap-2"><span className="w-3.5 h-3.5 border-2 border-red-200/30 border-t-red-500 rounded-full animate-spin" />Rejecting…</span>
+                        ) : (
+                          <span className="flex items-center gap-2"><XCircle className="w-4 h-4" />Reject</span>
+                        )}
+                      </button>
+                    </div>
+                    <p className="text-xs text-dark-400">
+                      Accepting applies only to this exact version. The server verifies the version before processing.
+                      If rejected, the worker can submit a revised quotation.
+                    </p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+
       {/* Booking Fee / Policy */}
       {booking.policy_snapshot && (
         <div className="card card-body">
-          <h2 className="text-heading-md text-dark-800 mb-3">Booking Fee & Policy</h2>
+          <h2 className="text-heading-md text-dark-800 mb-3">Booking Fee &amp; Policy</h2>
           <div className="bg-surface-50 rounded-xl p-4 space-y-2 text-sm">
             <div className="flex justify-between">
               <span className="text-dark-500">Booking Fee Charged</span>
@@ -157,80 +380,6 @@ export default function CustomerBookingDetail() {
               <span className="text-dark-600">{formatIST(booking.policy_snapshot.consent_timestamp, 'dd MMM yyyy, hh:mm a')} IST</span>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* Quotations */}
-      {quotations.length > 0 && (
-        <div className="card card-body">
-          <h2 className="text-heading-md text-dark-800 mb-4">Quotations</h2>
-          {quotations.map(q => {
-            const qBadge = getQuotationDecisionBadge(q.decision);
-            return (
-              <div key={q.id} className="border border-surface-200 rounded-xl p-4 mb-3 last:mb-0">
-                <div className="flex items-center justify-between mb-3">
-                  <div>
-                    <p className="text-sm font-semibold text-dark-800">Version {q.version} — {q.scope}</p>
-                    <p className="text-xs text-dark-400">Submitted: {formatIST(q.created_at, 'dd MMM, hh:mm a')} IST</p>
-                    {q.decided_at && <p className="text-xs text-dark-400">Decision: {formatIST(q.decided_at, 'dd MMM, hh:mm a')} IST</p>}
-                  </div>
-                  <span className={qBadge.className}>{qBadge.label}</span>
-                </div>
-
-                <table className="w-full text-xs mb-3">
-                  <thead>
-                    <tr className="border-b border-surface-200">
-                      <th className="text-left py-1.5 text-dark-500 font-medium">Item</th>
-                      <th className="text-right py-1.5 text-dark-500 font-medium">Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {q.line_items.map((item, i) => (
-                      <tr key={i} className="border-b border-surface-100">
-                        <td className="py-1.5 text-dark-600">
-                          {item.description}
-                          <span className="ml-1 text-dark-400">({item.type})</span>
-                        </td>
-                        <td className="py-1.5 text-right text-dark-700 font-medium">{formatPaise(item.total_paise)}</td>
-                      </tr>
-                    ))}
-                    <tr>
-                      <td className="py-2 font-bold text-dark-800">Total</td>
-                      <td className="py-2 text-right font-black text-dark-900 text-sm">{formatPaise(q.total_paise)}</td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <div className="text-xs text-dark-400 mb-3">
-                  Estimated duration: {q.estimated_duration_minutes} minutes
-                  {' · '}Valid until: {formatIST(q.valid_until, 'dd MMM, hh:mm a')} IST
-                </div>
-
-                {q.decision === 'PENDING' && (
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => handleAcceptQuotation(q.id)}
-                      className="btn-primary btn-sm flex-1"
-                    >
-                      <CheckCircle2 className="w-4 h-4" /> Accept Quotation
-                    </button>
-                    <button
-                      onClick={() => handleRejectQuotation(q.id)}
-                      className="btn-danger btn-sm flex-1"
-                    >
-                      <XCircle className="w-4 h-4" /> Reject
-                    </button>
-                  </div>
-                )}
-
-                {q.decision === 'PENDING' && (
-                  <p className="text-xs text-dark-400 mt-2">
-                    Accepting applies only to this exact quotation version. The server verifies the version before accepting.
-                  </p>
-                )}
-              </div>
-            );
-          })}
         </div>
       )}
 
@@ -264,7 +413,7 @@ export default function CustomerBookingDetail() {
             </div>
           )}
           <p className="text-xs text-dark-400 mt-3 italic">
-            Direct cash/UPI payments to workers are NOT platform-verified transfers. 
+            Direct cash/UPI payments to workers are NOT platform-verified transfers.
             Both parties must confirm for mutual record-keeping only.
           </p>
         </div>
@@ -326,6 +475,24 @@ export default function CustomerBookingDetail() {
               </button>
             </div>
           )}
+        </div>
+      )}
+
+      {/* Lightbox */}
+      {lightboxSrc && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setLightboxSrc(null)}
+        >
+          <button className="absolute top-4 right-4 text-white/70 hover:text-white" onClick={() => setLightboxSrc(null)}>
+            <X className="w-8 h-8" />
+          </button>
+          <img
+            src={lightboxSrc}
+            alt="Problem photo"
+            className="max-w-full max-h-full object-contain rounded-xl"
+            onClick={e => e.stopPropagation()}
+          />
         </div>
       )}
     </div>

@@ -4,7 +4,8 @@
  */
 
 import type { Booking, FulfillmentStatus, WorkerProfile } from '../types/domain';
-import { SERVICE_CATEGORIES, SERVICE_AREAS, MOCK_BOOKINGS, MOCK_WORKERS, MOCK_CUSTOMER } from './mock-data';
+import type { ProblemImage, Quotation } from '../types/domain';
+import { SERVICE_CATEGORIES, SERVICE_AREAS, MOCK_BOOKINGS, MOCK_WORKERS, MOCK_CUSTOMER, MOCK_QUOTATIONS } from './mock-data';
 
 export type ExtendedFulfillmentStatus =
   | 'REQUESTED'
@@ -15,6 +16,10 @@ export type ExtendedFulfillmentStatus =
   | 'CONFIRMED'
   | 'WORKER_ON_THE_WAY'
   | 'WORKER_ARRIVED'
+  | 'PROBLEM_INSPECTION'
+  | 'QUOTATION_CREATED'
+  | 'CUSTOMER_REVIEWING_QUOTATION'
+  | 'QUOTATION_ACCEPTED'
   | 'SERVICE_STARTED'
   | 'SERVICE_COMPLETED'
   | 'PAYMENT_PENDING'
@@ -37,7 +42,9 @@ export interface ExtendedBooking extends Omit<Booking, 'fulfillment_status'> {
   preferred_date?: string;
   preferred_time?: string;
   notes?: string;
-  images?: string[];
+  images?: string[];            // legacy - kept for compat
+  issue_type_id?: string;       // links to RepairIssue.id
+  issue_type_name?: string;     // denormalized display name
   worker_candidates?: WorkerProfile[]; // workers who accepted
   selected_worker_id?: string;
 }
@@ -170,6 +177,11 @@ const _workerLocations: Map<string, WorkerLocation> = new Map([
   }],
 ]);
 
+const _problemImages: ProblemImage[] = [];
+
+// Seed with mock quotation data
+const _quotations: Quotation[] = [...MOCK_QUOTATIONS];
+
 // ─── Store API ─────────────────────────────────────────────────────────────
 
 export const BookingStore = {
@@ -208,6 +220,8 @@ export const BookingStore = {
     preferred_date: string;
     preferred_time: string;
     notes?: string;
+    issue_type_id?: string;
+    issue_type_name?: string;
   }): ExtendedBooking {
     const category = SERVICE_CATEGORIES.find(c => c.id === data.category_id)!;
     const area = SERVICE_AREAS.find(a => a.id === data.area_id)!;
@@ -224,6 +238,8 @@ export const BookingStore = {
       preferred_date: data.preferred_date,
       preferred_time: data.preferred_time,
       notes: data.notes,
+      issue_type_id: data.issue_type_id,
+      issue_type_name: data.issue_type_name,
       fulfillment_status: 'REQUESTED',
       payment_status: 'CREATED',
       worker_candidates: [],
@@ -334,4 +350,98 @@ export const BookingStore = {
       is_sharing: isSharing,
     });
   },
+
+  // ─── Problem Images ───────────────────────────────────────────────────────
+
+  getProblemImages(bookingId: string): ProblemImage[] {
+    return _problemImages.filter(img => img.booking_id === bookingId);
+  },
+
+  addProblemImages(bookingId: string, images: Array<{ data_url: string; file_name: string }>, uploadedBy: string): ProblemImage[] {
+    const now = new Date().toISOString();
+    const newImgs: ProblemImage[] = images.map(img => ({
+      id: `pimg-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
+      booking_id: bookingId,
+      data_url: img.data_url,
+      file_name: img.file_name,
+      uploaded_by: uploadedBy,
+      created_at: now,
+    }));
+    _problemImages.push(...newImgs);
+    return newImgs;
+  },
+
+  deleteProblemImage(imageId: string, requesterId: string): boolean {
+    const idx = _problemImages.findIndex(img => img.id === imageId && img.uploaded_by === requesterId);
+    if (idx === -1) return false;
+    _problemImages.splice(idx, 1);
+    return true;
+  },
+
+  // ─── Quotation Store ─────────────────────────────────────────────────────
+
+  getQuotations(bookingId: string): Quotation[] {
+    return _quotations.filter(q => q.booking_id === bookingId);
+  },
+
+  submitQuotation(data: Omit<Quotation, 'id' | 'created_at' | 'decision'>): Quotation {
+    // Supersede any previously PENDING quotation for this booking
+    _quotations
+      .filter(q => q.booking_id === data.booking_id && q.decision === 'PENDING')
+      .forEach(q => { q.decision = 'SUPERSEDED'; });
+
+    // Server-side: recalculate total from line items (never trust frontend total)
+    const recalcTotal = data.line_items.reduce((sum, item) => {
+      return sum + Math.round(item.quantity * item.unit_price_paise);
+    }, 0);
+
+    const newQuotation: Quotation = {
+      ...data,
+      id: `qt-${Date.now()}`,
+      decision: 'PENDING',
+      total_paise: recalcTotal, // server recalculates
+      created_at: new Date().toISOString(),
+    };
+    _quotations.push(newQuotation);
+
+    // Update booking status
+    const booking = _bookings.find(b => b.booking_id === data.booking_id || b.id === data.booking_id);
+    if (booking) {
+      booking.fulfillment_status = 'CUSTOMER_REVIEWING_QUOTATION';
+      booking.updated_at = new Date().toISOString();
+    }
+
+    return newQuotation;
+  },
+
+  acceptQuotation(quotationId: string, decidedBy: string): boolean {
+    const q = _quotations.find(q => q.id === quotationId && q.decision === 'PENDING');
+    if (!q) return false;
+    q.decision = 'ACCEPTED';
+    q.decided_at = new Date().toISOString();
+    q.decided_by = decidedBy;
+    // Update booking status
+    const booking = _bookings.find(b => b.id === q.booking_id);
+    if (booking) {
+      booking.fulfillment_status = 'QUOTATION_ACCEPTED';
+      booking.updated_at = new Date().toISOString();
+    }
+    return true;
+  },
+
+  rejectQuotation(quotationId: string, decidedBy: string): boolean {
+    const q = _quotations.find(q => q.id === quotationId && q.decision === 'PENDING');
+    if (!q) return false;
+    q.decision = 'REJECTED';
+    q.decided_at = new Date().toISOString();
+    q.decided_by = decidedBy;
+    // Revert booking to inspection state so worker can resubmit
+    const booking = _bookings.find(b => b.id === q.booking_id);
+    if (booking) {
+      booking.fulfillment_status = 'PROBLEM_INSPECTION';
+      booking.updated_at = new Date().toISOString();
+    }
+    return true;
+  },
 };
+
