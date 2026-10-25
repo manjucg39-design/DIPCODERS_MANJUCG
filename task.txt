@@ -1,0 +1,1438 @@
+# LOCALFIX — COMPLETE APPLICATION MODIFICATION PROMPT
+
+## IMPORTANT INSTRUCTION
+
+Modify the **existing LocalFix project**. Do NOT rebuild the application from scratch.
+
+First inspect the complete existing codebase, including:
+
+- Frontend structure
+- Backend/API structure
+- Database models
+- Authentication system
+- Existing dashboards
+- Existing booking flow
+- Existing payment logic
+- Existing components
+- Existing design system
+- Existing routing
+- Existing state management
+- Existing notification system
+- Existing deployment configuration
+
+Preserve the existing:
+
+- Technology stack
+- Project structure
+- Working features
+- UI/UX design language
+- Components
+- Reusable utilities
+- Authentication architecture
+- Existing APIs wherever possible
+
+Only modify or extend what is necessary.
+
+Before making changes, identify which existing components, routes, APIs, database models, and services can be reused.
+
+---
+
+# 1. CORE PRODUCT CONCEPT
+
+LocalFix should work like a **Rapido/Uber-style service marketplace**, but instead of transporting passengers, customers request local home and maintenance services.
+
+There must be **three completely separate roles and experiences**:
+
+1. CUSTOMER
+2. WORKER
+3. ADMIN
+
+Customer and Worker experiences must be treated as separate applications/interfaces even if they share the same backend.
+
+Do NOT create one combined dashboard with conditional sections.
+
+Use proper role-based authentication and backend authorization.
+
+---
+
+# 2. USER ROLES
+
+## CUSTOMER
+
+Customers can:
+
+- Register
+- Login
+- Select a service
+- Create a service request
+- Enter their location
+- Track the assigned worker
+- View worker information
+- Receive worker responses
+- Review quotations
+- Accept/reject workers
+- Communicate regarding the booking
+- Track service status
+- Complete/cancel requests
+- Rate and review workers
+- Report workers
+- View booking history
+- Manage profile
+- Change language
+
+---
+
+## WORKER
+
+Workers are service providers.
+
+Workers can:
+
+- Register as workers
+- Create/manage professional profiles
+- Add skills
+- Add service categories
+- Add experience
+- Define service areas
+- Set availability
+- Receive nearby service requests
+- Accept/decline requests
+- View customer/service information required to perform the job
+- Navigate to the customer
+- Share live location while travelling to an accepted job
+- Update job status
+- Provide quotation if applicable
+- Communicate with the customer
+- Complete the service
+- View earnings/payment status
+- Receive ratings
+- View complaints relevant to them
+- Manage profile
+- Change language
+
+Workers must NOT have access to admin functionality.
+
+---
+
+## ADMIN
+
+Admin must have a completely separate Admin Dashboard.
+
+Admin can:
+
+- View all customers
+- View all workers
+- Approve/reject worker accounts if verification is enabled
+- Verify worker profiles
+- View service requests
+- View active bookings
+- Monitor ongoing jobs
+- View complaints/reports
+- Investigate worker/customer disputes
+- Suspend workers
+- Suspend customers
+- Manage service categories
+- Manage platform settings
+- Manage cancellation policies
+- View ratings/reviews
+- View transactions/payment records
+- View platform analytics
+- Manage notifications
+- View system/security logs
+- Handle support requests
+
+Admin should have complete moderation/control capabilities but should NOT be able to access unnecessary private customer/worker data.
+
+---
+
+# 3. REGISTRATION SYSTEM
+
+Create a professional registration page.
+
+The first step must ask:
+
+## "How do you want to use LocalFix?"
+
+Options:
+
+- Customer
+- Worker
+
+The selected role must be stored securely on the backend.
+
+Do NOT trust a role supplied by the frontend.
+
+A user must NOT be able to become an admin by modifying frontend requests.
+
+---
+
+# 4. COMMON REGISTRATION FIELDS
+
+Required:
+
+- Full Name
+- Mobile Number
+- Email Address (if available)
+- Password
+- Confirm Password
+- Preferred Language
+- Account Type
+
+Languages:
+
+1. Kannada
+2. English
+3. Hindi
+4. Tamil
+5. Telugu
+
+Requirements:
+
+- Required field validation
+- Mobile validation
+- Email validation
+- Strong password validation
+- Password confirmation validation
+- Duplicate account prevention
+- Secure password hashing
+- Secure authentication
+- Loading state
+- Success state
+- Error state
+- Login link
+
+After registration:
+
+CUSTOMER → Customer Dashboard
+
+WORKER → Worker Dashboard
+
+---
+
+# 5. WORKER REGISTRATION
+
+Workers additionally provide:
+
+- Skills
+- Service categories
+- Experience
+- Service area
+- Languages spoken
+- Availability
+- Profile photo
+- Professional description
+- Optional government/identity verification information if the existing system supports it
+
+Worker profiles should have:
+
+- Verification status
+- Rating
+- Number of completed jobs
+- Experience
+- Skills
+- Service categories
+- Service area
+- Availability
+
+Do not display sensitive verification information publicly.
+
+---
+
+# 6. CUSTOMER DASHBOARD
+
+Create a dedicated Customer Dashboard.
+
+Primary areas:
+
+### A. Book a Service
+
+Service categories:
+
+- Plumbing
+- Electrical
+- Painting
+- Cleaning
+- Carpentry
+- AC Repair
+- Appliance Repair
+- General Maintenance
+
+Each service category must have:
+
+- Icon
+- Name
+- Description
+
+---
+
+# 7. SERVICE REQUEST
+
+When the customer selects a service:
+
+Open a booking/request form.
+
+Fields:
+
+- Service category
+- Problem description
+- Customer location
+- Current GPS location if permission is granted
+- Address
+- Preferred service time
+- Optional images
+- Additional notes
+
+Button:
+
+**Request Service**
+
+---
+
+# 8. IMPORTANT — NO UPFRONT ₹30 BOOKING CHARGE
+
+REMOVE any existing logic that immediately charges ₹30 or another booking fee when a customer submits a request.
+
+Submitting a request must NOT automatically charge the customer.
+
+The correct lifecycle is:
+
+CUSTOMER REQUEST
+↓
+WORKER DISCOVERY
+↓
+WORKER ACCEPTANCE
+↓
+CUSTOMER REVIEWS WORKER
+↓
+CUSTOMER SELECTS WORKER
+↓
+QUOTATION / CONFIRMATION
+↓
+PAYMENT IF APPLICABLE
+↓
+WORK STARTS
+↓
+WORK COMPLETED
+↓
+PAYMENT COMPLETION
+↓
+RATING & REVIEW
+
+---
+
+# 9. BOOKING REQUEST ID
+
+When a customer submits a request:
+
+Generate a unique booking/request ID.
+
+Example:
+
+LF-2026-000123
+
+Display:
+
+"Your service request has been submitted."
+
+Show:
+
+- Request ID
+- Service
+- Location
+- Requested time
+- Current status
+
+Initial status:
+
+REQUESTED
+
+---
+
+# 10. WORKER REQUEST DISCOVERY
+
+Suitable workers should receive service requests based on:
+
+- Service category
+- Skills
+- Service area
+- Availability
+- Distance
+
+Workers should see:
+
+- Service category
+- Problem description
+- Approximate customer location
+- Requested time
+- Distance
+- Request time
+- Optional uploaded images
+
+Do not expose unnecessary private customer information before acceptance.
+
+Worker actions:
+
+- ACCEPT
+- DECLINE
+
+---
+
+# 11. WORKER ACCEPTANCE
+
+Worker acceptance means:
+
+"I am willing to take this job."
+
+It does NOT mean:
+
+- Customer has paid
+- Final price has been agreed
+- Job has started
+
+After acceptance:
+
+Booking status:
+
+WORKER_ACCEPTED
+
+Notify the customer immediately.
+
+---
+
+# 12. CUSTOMER REVIEWS WORKER RESPONSE
+
+Customer receives notification:
+
+"A worker is available for your request."
+
+Show:
+
+- Worker name
+- Profile photo
+- Skills
+- Experience
+- Rating
+- Completed jobs
+- Verification status
+- Approximate distance
+- Availability
+- Proposed quotation, if available
+
+Customer options:
+
+### ACCEPT WORKER
+
+or
+
+### DECLINE WORKER
+
+If customer declines:
+
+Do NOT automatically charge a cancellation fee unless a configured cancellation policy explicitly applies.
+
+---
+
+# 13. WORKER SELECTION
+
+Once customer selects a worker:
+
+Booking status:
+
+WORKER_SELECTED
+
+Display:
+
+"Worker selected. You can now proceed with confirmation/payment."
+
+Only at this stage should payment/quotation confirmation become available.
+
+---
+
+# 14. REAL-TIME LOCATION TRACKING
+
+Implement a system inspired by **Rapido/Uber-style tracking**.
+
+This is one of the most important features.
+
+After a worker accepts a job and is assigned to the customer:
+
+The customer should be able to see:
+
+- Worker's current location
+- Worker's movement
+- Approximate distance
+- Estimated arrival time
+- Route/map
+- Worker profile
+- Booking status
+
+Example:
+
+Worker
+↓
+📍 Current location
+↓
+🚗 Travelling
+↓
+📍 Customer location
+
+The customer should be able to understand:
+
+"Is the worker actually coming toward me?"
+
+---
+
+# 15. WORKER LOCATION SHARING
+
+Worker location should NOT be tracked continuously without permission.
+
+Location sharing begins only when:
+
+- Worker accepts an active job
+- Worker starts travelling / enables "On the way"
+
+Location sharing ends when:
+
+- Worker reaches customer
+- Worker cancels
+- Job is completed
+- Tracking is manually stopped
+- Booking expires
+
+Ask for appropriate location permission.
+
+Do NOT continuously track workers when they are off duty.
+
+---
+
+# 16. CUSTOMER MAP
+
+Customer active booking screen should contain:
+
+### MAP
+
+Show:
+
+- Customer location
+- Worker location
+- Route
+- Worker movement
+- Estimated arrival
+
+### WORKER CARD
+
+Display:
+
+- Worker name
+- Photo
+- Rating
+- Experience
+- Verification
+- Skills
+- Contact/chat option if supported
+
+### BOOKING STATUS
+
+Example lifecycle:
+
+REQUESTED
+→ WORKER FOUND
+→ WORKER ACCEPTED
+→ CUSTOMER CONFIRMED
+→ WORKER ON THE WAY
+→ WORKER ARRIVED
+→ SERVICE STARTED
+→ SERVICE COMPLETED
+→ PAYMENT
+→ REVIEWED
+
+---
+
+# 17. WORKER DASHBOARD
+
+Worker dashboard must be completely separate from Customer Dashboard.
+
+Main sections:
+
+### HOME
+
+Show:
+
+- Available requests
+- Active job
+- Today's jobs
+- Earnings
+- Rating
+
+### REQUESTS
+
+Show nearby/suitable requests.
+
+Filters:
+
+- Service
+- Distance
+- Time
+- Availability
+
+Actions:
+
+- View
+- Accept
+- Decline
+
+### ACTIVE JOB
+
+Show:
+
+- Customer location
+- Navigation
+- Problem description
+- Booking information
+- Customer contact/chat
+- Job status
+
+Buttons:
+
+"Start Travelling"
+
+"Arrived"
+
+"Start Service"
+
+"Complete Service"
+
+### EARNINGS
+
+Show:
+
+- Completed jobs
+- Earnings
+- Pending payments
+- Completed payments
+
+### PROFILE
+
+Manage:
+
+- Skills
+- Experience
+- Services
+- Service area
+- Languages
+- Availability
+- Profile photo
+
+---
+
+# 18. ADMIN DASHBOARD
+
+Create a completely separate admin application/dashboard.
+
+Admin navigation:
+
+- Overview
+- Customers
+- Workers
+- Service Requests
+- Active Bookings
+- Completed Jobs
+- Complaints
+- Reports
+- Reviews
+- Payments
+- Service Categories
+- Worker Verification
+- Notifications
+- Platform Settings
+- Security Logs
+
+Dashboard statistics:
+
+- Total customers
+- Total workers
+- Active workers
+- Active bookings
+- Completed jobs
+- Pending complaints
+- Total transactions
+- Average rating
+
+---
+
+# 19. COMPLAINT / REPORT SYSTEM
+
+This is mandatory.
+
+Customers must be able to report a worker.
+
+Example reasons:
+
+- Worker did not arrive
+- Worker accepted but did not work
+- Poor service
+- Unprofessional behaviour
+- Wrong quotation
+- Unsafe behaviour
+- Misconduct
+- Payment dispute
+- Other
+
+Customer should be able to submit:
+
+- Complaint category
+- Description
+- Images/evidence if applicable
+- Booking ID
+
+Button:
+
+**Report Worker**
+
+---
+
+# 20. DIRECT ADMIN REPORTING
+
+The customer should be able to report directly to Admin.
+
+Create:
+
+### Report / Complaint Center
+
+Customer can:
+
+- Create complaint
+- View complaint status
+- Add messages
+- Upload evidence
+- View admin response
+
+Statuses:
+
+OPEN
+→ UNDER REVIEW
+→ INVESTIGATING
+→ RESOLVED
+→ CLOSED
+
+Admin can:
+
+- View complaint
+- Communicate with customer
+- Review worker
+- Review booking history
+- Take action
+- Suspend worker if necessary
+- Resolve complaint
+
+---
+
+# 21. WORKER COMPLAINT PROTECTION
+
+Workers must also be able to report customers.
+
+Examples:
+
+- Customer harassment
+- Unsafe location
+- False complaint
+- Payment issue
+- Misconduct
+- Other
+
+Both sides should have a fair reporting mechanism.
+
+Do NOT automatically punish workers based only on one complaint.
+
+Admin should investigate using:
+
+- Booking information
+- Messages
+- Status history
+- Evidence
+- Previous complaints
+- Ratings
+- System logs
+
+---
+
+# 22. CHAT / COMMUNICATION
+
+If chat already exists, extend it.
+
+If not, implement a secure booking-based communication system.
+
+Customer ↔ Worker communication should be tied to the booking.
+
+Do not allow users to access unrelated conversations.
+
+Messages should have:
+
+- Timestamp
+- Sender
+- Booking ID
+- Read status
+
+Use secure communication and authorization.
+
+---
+
+# 23. END-TO-END ENCRYPTION / SECURITY
+
+Security is extremely important.
+
+Implement the strongest practical security supported by the existing architecture.
+
+Requirements:
+
+- HTTPS/TLS in production
+- Secure password hashing
+- Secure authentication tokens/sessions
+- HTTP-only secure cookies where applicable
+- CSRF protection where applicable
+- Role-based backend authorization
+- Input validation
+- Output sanitization
+- Rate limiting
+- Secure file uploads
+- Access control
+- Secure API endpoints
+- Protection against IDOR
+- Protection against unauthorized booking access
+- Protection against privilege escalation
+- Secure location access
+- Minimal location data retention
+- Audit/security logs
+
+### IMPORTANT
+
+Do not falsely claim that the application is "end-to-end encrypted" unless the actual architecture provides true end-to-end encryption.
+
+If true E2EE is implemented for private chat:
+
+The server must not possess the plaintext encryption keys necessary to decrypt message contents.
+
+For normal HTTPS/API traffic, use TLS.
+
+Clearly separate:
+
+- Transport encryption
+- Database encryption
+- End-to-end encryption
+
+Do not compromise security merely to make implementation easier.
+
+---
+
+# 24. LOCATION PRIVACY
+
+Location data is sensitive.
+
+Implement:
+
+- Explicit location permission
+- Location sharing only for active bookings
+- No unnecessary background tracking
+- Secure location transmission
+- Access only by authorized booking participants/admins where necessary
+- Automatic tracking termination after job completion
+- Appropriate location-data retention policy
+- Ability to revoke location access
+
+Do not expose exact worker/customer location publicly.
+
+---
+
+# 25. SERVICE COMPLETION
+
+Worker marks:
+
+### SERVICE COMPLETED
+
+Customer receives:
+
+"Worker has marked the service as completed."
+
+Customer can:
+
+- Confirm completion
+- Raise a dispute
+- Proceed with applicable payment
+- Rate worker
+
+Do not automatically close a disputed job.
+
+---
+
+# 26. PAYMENT FLOW
+
+Payment must be tied to the booking lifecycle.
+
+Do NOT charge during initial request submission.
+
+Possible flow:
+
+REQUEST
+→ WORKER ACCEPTED
+→ CUSTOMER SELECTED WORKER
+→ QUOTATION
+→ CUSTOMER CONFIRMS
+→ SERVICE
+→ COMPLETION
+→ PAYMENT
+
+The exact payment integration should reuse the existing payment architecture if one exists.
+
+Do not hard-code ₹30.
+
+Make fees configurable through Admin settings.
+
+---
+
+# 27. RATING SYSTEM
+
+After successful completion:
+
+Customer can rate worker.
+
+Use:
+
+⭐⭐⭐⭐⭐
+
+Also provide optional review.
+
+Possible rating categories:
+
+- Service quality
+- Professionalism
+- Punctuality
+- Behaviour
+- Value for money
+
+Workers can also rate customers if appropriate.
+
+---
+
+# 28. RECOMMENDATION SYSTEM
+
+Use completed booking data and ratings to improve future recommendations.
+
+For example, when a customer requests:
+
+"Plumber"
+
+The system can prioritize workers based on:
+
+- Rating
+- Distance
+- Availability
+- Skills
+- Experience
+- Successful completion rate
+- Response rate
+- Customer reviews
+
+Do NOT unfairly rank workers based only on popularity.
+
+Keep the recommendation logic explainable.
+
+---
+
+# 29. NOTIFICATION SYSTEM
+
+Implement notifications for important events.
+
+Customer notifications:
+
+- Request submitted
+- Worker accepted
+- Worker selected
+- Worker on the way
+- Worker arrived
+- Service started
+- Service completed
+- Payment required
+- Complaint update
+- Review reminder
+
+Worker notifications:
+
+- New nearby request
+- Customer selected worker
+- Customer cancelled
+- Job reminder
+- Customer complaint
+- Payment update
+- Rating received
+
+Admin notifications:
+
+- New complaint
+- Suspicious activity
+- Worker verification request
+- Payment dispute
+- Critical system events
+
+Use existing notification infrastructure wherever available.
+
+---
+
+# 30. LANGUAGE SYSTEM
+
+Support:
+
+- Kannada
+- English
+- Hindi
+- Tamil
+- Telugu
+
+The selected language should be stored in the user's profile.
+
+The UI should use a proper localization/i18n system.
+
+Do NOT hard-code translated text throughout components.
+
+Users should be able to change language from Settings.
+
+---
+
+# 31. BOOKING STATE MACHINE
+
+Implement a clear backend booking state machine.
+
+Possible states:
+
+REQUESTED
+WORKER_NOTIFIED
+WORKER_ACCEPTED
+CUSTOMER_REVIEWING
+WORKER_SELECTED
+CONFIRMED
+WORKER_ON_THE_WAY
+WORKER_ARRIVED
+SERVICE_STARTED
+SERVICE_COMPLETED
+PAYMENT_PENDING
+PAYMENT_COMPLETED
+CANCELLED
+DISPUTED
+RESOLVED
+
+Validate state transitions on the backend.
+
+Do NOT allow the frontend to arbitrarily change booking status.
+
+---
+
+# 32. DATABASE DESIGN
+
+Extend existing database models rather than replacing them.
+
+Potential entities:
+
+User
+CustomerProfile
+WorkerProfile
+AdminProfile
+ServiceCategory
+ServiceRequest
+Booking
+WorkerLocation
+Quotation
+Payment
+Review
+Complaint
+Message
+Notification
+Availability
+AuditLog
+
+Use relationships/references appropriate to the existing database.
+
+Do not duplicate user information unnecessarily.
+
+---
+
+# 33. API SECURITY
+
+Every protected endpoint must verify:
+
+1. Authentication
+2. User identity
+3. User role
+4. Resource ownership/permission
+
+Example:
+
+A customer must not be able to:
+
+- Access another customer's booking
+- Modify a worker's profile
+- Access admin APIs
+- Change their role to admin
+- Modify another user's location
+
+A worker must not be able to:
+
+- Access admin APIs
+- Modify another worker's booking
+- View unrelated customer data
+- Manipulate ratings
+- Resolve their own complaints
+
+---
+
+# 34. ERROR HANDLING
+
+The application must not break in the middle of an event or booking.
+
+Every important operation should have:
+
+- Loading state
+- Success state
+- Error state
+- Retry mechanism where appropriate
+- User-friendly error message
+
+Examples:
+
+If location fails:
+
+"Unable to access your location. Please enable location permission or enter your address manually."
+
+If worker location temporarily disconnects:
+
+"Worker location temporarily unavailable. Last updated 20 seconds ago."
+
+Do not crash the dashboard.
+
+---
+
+# 35. REAL-TIME SYSTEM RELIABILITY
+
+For real-time tracking and booking updates:
+
+Use the existing real-time architecture if available.
+
+Otherwise use an appropriate architecture such as:
+
+- WebSockets
+- Server-Sent Events
+- Secure polling fallback
+
+The system must gracefully handle:
+
+- Network interruption
+- Worker going offline
+- Customer going offline
+- Location update failure
+- WebSocket disconnect
+- Reconnection
+- Duplicate events
+- Stale location
+
+Never assume a network connection is always available.
+
+---
+
+# 36. OFFLINE / FAILURE HANDLING
+
+The application must fail gracefully.
+
+If the worker loses internet:
+
+- Preserve the active booking state.
+- Show "Connection lost."
+- Attempt reconnection.
+- Do not duplicate booking requests.
+
+If the customer loses internet:
+
+- Preserve booking information.
+- Reconnect automatically.
+- Refresh booking state from the server.
+
+Backend remains the source of truth.
+
+---
+
+# 37. UI/UX
+
+Keep the existing LocalFix design system.
+
+Do NOT redesign the entire application unnecessarily.
+
+Improve only where required.
+
+The interface should feel like a professional service marketplace.
+
+Customer experience:
+
+Simple → Select service → Request → Worker response → Track → Complete → Review
+
+Worker experience:
+
+Available requests → Accept → Navigate → Work → Complete → Earnings
+
+Admin experience:
+
+Monitor → Investigate → Manage → Resolve
+
+Use:
+
+- Responsive layouts
+- Mobile-first design
+- Clear buttons
+- Status indicators
+- Loading skeletons
+- Empty states
+- Error states
+- Confirmation dialogs
+- Accessible forms
+- Consistent icons
+
+---
+
+# 38. ROUTING
+
+Create separate protected routes.
+
+Example:
+
+/login
+
+/register
+
+/customer/dashboard
+/customer/book
+/customer/bookings
+/customer/booking/:id
+/customer/profile
+/customer/complaints
+/customer/settings
+
+/worker/dashboard
+/worker/requests
+/worker/booking/:id
+/worker/active-job
+/worker/earnings
+/worker/profile
+/worker/settings
+
+/admin/dashboard
+/admin/customers
+/admin/workers
+/admin/bookings
+/admin/complaints
+/admin/payments
+/admin/reviews
+/admin/settings
+/admin/security
+
+Use middleware/guards to protect routes.
+
+---
+
+# 39. DO NOT TRUST FRONTEND AUTHORIZATION
+
+This is critical.
+
+Never implement:
+
+```javascript
+if (user.role === "admin") {
+   showAdminPanel();
+}
+```
+
+as the only security mechanism.
+
+The backend must enforce permissions.
+
+Even if someone manually sends an API request, unauthorized operations must return an appropriate error such as:
+
+401 Unauthorized
+
+or
+
+403 Forbidden
+
+---
+
+# 40. ADMIN CONTROL OVER PLATFORM FEES
+
+Do not hard-code booking charges.
+
+Admin should be able to configure:
+
+- Platform fee
+- Cancellation policy
+- Service fee
+- Payment settings
+
+Changes should be stored in the backend.
+
+---
+
+# 41. AUDIT LOGGING
+
+Record security-sensitive actions such as:
+
+- Login
+- Registration
+- Role changes
+- Worker approval
+- Booking creation
+- Worker acceptance
+- Worker selection
+- Payment events
+- Complaint creation
+- Admin actions
+- Account suspension
+
+Do not log passwords, authentication secrets, or unnecessary sensitive information.
+
+---
+
+# 42. FINAL IMPLEMENTATION REQUIREMENT
+
+Before modifying anything:
+
+1. Inspect the existing project.
+2. Understand the existing architecture.
+3. Identify reusable components.
+4. Identify existing authentication.
+5. Identify existing booking/payment logic.
+6. Identify database structure.
+7. Identify existing API endpoints.
+8. Identify existing design system.
+
+Then implement the changes incrementally.
+
+DO NOT rebuild the application from scratch.
+
+DO NOT remove working features unless absolutely necessary.
+
+DO NOT replace the existing technology stack.
+
+DO NOT create duplicate systems when an existing implementation can be extended.
+
+---
+
+# 43. FINAL TESTING CHECKLIST
+
+Test the complete flow:
+
+### CUSTOMER
+
+Register
+→ Login
+→ Select service
+→ Submit request
+→ Receive worker response
+→ Select worker
+→ Track worker
+→ Worker arrives
+→ Service starts
+→ Service completed
+→ Payment
+→ Rate worker
+
+### WORKER
+
+Register
+→ Login
+→ Complete profile
+→ Become available
+→ Receive request
+→ Accept
+→ Start travelling
+→ Share location
+→ Arrive
+→ Start service
+→ Complete service
+→ Receive rating/payment
+
+### ADMIN
+
+Login
+→ View customers
+→ View workers
+→ Verify workers
+→ View bookings
+→ Monitor active bookings
+→ View complaints
+→ Investigate complaint
+→ Take action
+→ Resolve complaint
+
+### SECURITY
+
+Test:
+
+- Unauthorized API access
+- Role manipulation
+- Customer accessing another booking
+- Worker accessing another worker's data
+- Admin-only routes
+- Invalid booking state transitions
+- Duplicate requests
+- Duplicate payments
+- Invalid location updates
+- Expired sessions
+- File upload validation
+- Rate limiting
+- Authentication failures
+
+---
+
+# 44. MOST IMPORTANT PRODUCT PRINCIPLE
+
+LocalFix should feel like:
+
+**"Uber/Rapido for local home services."**
+
+But the system must be designed specifically for service work.
+
+The core experience is:
+
+CUSTOMER
+→ Requests a service
+→ Nearby/suitable workers receive it
+→ Worker accepts
+→ Customer chooses worker
+→ Customer sees worker profile
+→ Worker travels toward customer
+→ Customer sees live/near-real-time location
+→ Worker arrives
+→ Service is performed
+→ Service completed
+→ Payment
+→ Customer reviews worker
+→ Future customers benefit from trustworthy ratings
+
+At the same time:
+
+WORKER
+→ Receives relevant jobs
+→ Accepts jobs
+→ Navigates to customers
+→ Performs work
+→ Gets paid
+→ Builds reputation
+
+And:
+
+ADMIN
+→ Protects the marketplace
+→ Handles complaints
+→ Verifies workers
+→ Monitors bookings
+→ Controls platform rules
+→ Resolves disputes
+→ Maintains trust and security
+
+Build this as a **production-minded, secure, role-based marketplace**, not just a collection of UI screens.
+
+After implementation, verify the entire customer → worker → admin lifecycle end-to-end and ensure existing LocalFix functionality remains intact.
